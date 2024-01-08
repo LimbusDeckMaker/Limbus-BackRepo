@@ -15,14 +15,16 @@ public class JsonParser {
     public static List<Ego> parseJsonForEgo(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper.readValue(new File(filePath), new TypeReference<List<Ego>>(){});
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
 
     }
 
     public static List<EgoSkill> parseJsonForEgoSkill(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper.readValue(new File(filePath), new TypeReference<List<EgoSkill>>(){});
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
 
     }
 }
