@@ -57,7 +57,6 @@
     <instrumentedNotNulls>
       <option value="org.jetbrains.annotations.NotNull" />
       <option value="org.springframework.lang.NonNull" />
-      <option value="org.springframework.lang.NonNullApi" />
     </instrumentedNotNulls>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK" />
