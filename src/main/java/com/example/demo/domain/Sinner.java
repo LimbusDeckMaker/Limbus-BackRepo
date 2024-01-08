@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.Ego.Ego;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
