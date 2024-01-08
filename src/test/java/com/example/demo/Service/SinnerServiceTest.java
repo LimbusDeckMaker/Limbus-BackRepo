@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
 
 @Slf4j
-@SpringBootTest(classes = SinnerServiceTest.class)
+@SpringBootTest
 class SinnerServiceTest {
 
     @Autowired
@@ -20,6 +20,7 @@ class SinnerServiceTest {
     public void testProcessAndSaveData() throws IOException {
         String jsonFilePath = "C:\\Spring\\LimbusDeckMaker\\src\\main\\java\\com\\example\\demo\\json\\ego\\SinclairDataChange_10.json";
         sinnerService.processAndSaveData(jsonFilePath);
+
 
 
     }
