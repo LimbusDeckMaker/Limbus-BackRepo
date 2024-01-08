@@ -6,18 +6,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JsonNameChange{
     public static void main(String[] args) {
-        String inputFilePath = "C:\\Spring\\demo\\src\\main\\java\\com\\example\\demo\\util\\SinclairData.json"; // Replace with your input file path
+        String inputFilePath = "C:\\Spring\\demo\\src\\main\\java\\com\\example\\demo\\util\\SinclairData_10.json"; // Replace with your input file path
         String outputFilePath = "C:\\Spring\\demo\\src\\main\\java\\com\\example\\demo\\util\\SinclairDataChange_10.json"; // Replace with your output file path
 
         try {
             // Read JSON file
-            String jsonString = new String(Files.readAllBytes(Paths.get(inputFilePath)), StandardCharsets.UTF_8);
+            String jsonString = Files.readString(Paths.get(inputFilePath));
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(jsonString);
 

@@ -21,8 +21,6 @@ class SinnerServiceTest {
         String jsonFilePath = "C:\\Spring\\LimbusDeckMaker\\src\\main\\java\\com\\example\\demo\\json\\ego\\SinclairDataChange_10.json";
         sinnerService.processAndSaveData(jsonFilePath);
 
-
-
     }
 
 }

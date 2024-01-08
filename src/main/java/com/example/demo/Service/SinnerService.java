@@ -42,15 +42,13 @@ public class SinnerService {
         List<Ego> egos = JsonParser.parseJsonForEgo(jsonFilePath);
         List<EgoSkill> egoSkills = JsonParser.parseJsonForEgoSkill(jsonFilePath);
         List<CorrosionSkill> corSkills = JsonParser.parseJsonForEgoCorrosionSkill(jsonFilePath);
-        for (CorrosionSkill corrosionSkill : corSkills) {
-            log.info("CorSkill info ->{}", corrosionSkill.getSync3Info());
-        }
 
         // 추출된 Sinner ID로 Sinner 찾기
         Optional<Sinner> sinnerOptional = sinnerRepository.findById(sinnerId);
 
         if (sinnerOptional.isPresent()) {
             Sinner sinner = sinnerOptional.get();
+
             for (Ego ego : egos) {
                 ego.setSinner(sinner);
                 egoRepository.save(ego);
@@ -87,7 +85,6 @@ public class SinnerService {
 
 
     private long extractSinnerIdFromFileName(String fileName) {
-        // 파일 이름에서 숫자만 추출하는 로직 (예: "SinclairData_10.json" -> 10)
         String idStr = fileName.replaceAll("[^0-9]", "");
         return Long.parseLong(idStr);
     }

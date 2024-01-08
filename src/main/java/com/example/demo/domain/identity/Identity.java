@@ -1,8 +1,7 @@
-package com.example.demo.domain.ego;
+package com.example.demo.domain.identity;
 
-import com.example.demo.domain.ego.imbeddable.Sync3Info;
-import com.example.demo.domain.egoSkill.EgoSkill;
 import com.example.demo.domain.Sinner;
+import com.example.demo.domain.identity.imbeddable.Status;
 import com.example.demo.util.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,30 +17,36 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "ego")
+@Table(name = "identity")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
 @Getter
-public class Ego {
+public class Identity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("ego_name")
+    @JsonProperty("name")
     private String name;
 
     private String image;
 
-    @JsonProperty("egorank")
-    private String grade;
+    private String sync3Image;
 
     @Convert(converter = StringListConverter.class)
     private List<String> resistance;
 
-    @JsonProperty("sync3")
     @Embedded
-    private Sync3Info sync3Info;
+    @JsonProperty("sync3")
+    private Status status;
+
+    @JsonProperty("position")
+    private String affiliation;
+
+    @JsonProperty("rank")
+    private Integer grade;
 
     @JsonProperty("birth")
     @JsonFormat(pattern = "yyyy/MM/dd")
@@ -50,17 +55,20 @@ public class Ego {
     @JsonProperty("get")
     private String obtainingMethod;
 
-    @JsonProperty("keyword")
     @Convert(converter = StringListConverter.class)
+    @JsonProperty("keyword")
     private List<String> keyword;
 
-    // Sinner와의 관계 - 다대일
+    // Sinner - 다대일
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sinner_id")
     private Sinner sinner;
 
-    // EgoSkill과의 관계 - 일대다
-    @OneToOne(mappedBy = "ego", cascade = CascadeType.ALL, orphanRemoval = true)
-    private EgoSkill egoSkill;
+    // IdentityPassive, IdentitySupPassive - 일대일
+    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private IdentityPassive identityPassive;
+
+    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private IdentitySupPassive identitySupPassive;
 
 }
