@@ -1,6 +1,6 @@
-package com.example.demo.domain.EgoSkill;
-import com.example.demo.domain.Ego.Ego;
-import com.example.demo.domain.EgoSkill.imbeddable.Sync3Info;
+package com.example.demo.domain.egoSkill;
+import com.example.demo.domain.ego.Ego;
+import com.example.demo.domain.egoSkill.imbeddable.Sync3Info;
 import com.example.demo.util.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,4 +1,4 @@
-package com.example.demo.domain.Ego.imbeddable;
+package com.example.demo.domain.ego.imbeddable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;

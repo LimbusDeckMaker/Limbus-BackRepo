@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.domain.Ego.Ego;
+import com.example.demo.domain.ego.Ego;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

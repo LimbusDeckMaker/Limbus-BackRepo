@@ -1,7 +1,8 @@
 package com.example.demo.util;
 
-import com.example.demo.domain.Ego.Ego;
-import com.example.demo.domain.EgoSkill.EgoSkill;
+import com.example.demo.domain.corrosionSkill.CorrosionSkill;
+import com.example.demo.domain.ego.Ego;
+import com.example.demo.domain.egoSkill.EgoSkill;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -25,6 +26,12 @@ public class JsonParser {
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
         });
+    }
 
+    public static List<CorrosionSkill> parseJsonForEgoCorrosionSkill(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
     }
 }

@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.domain.Ego.Ego;
+import com.example.demo.domain.ego.Ego;
 import lombok.Value;
 
 import java.io.Serializable;

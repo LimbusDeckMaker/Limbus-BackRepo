@@ -1,4 +1,4 @@
-package com.example.demo.domain.EgoSkill.imbeddable;
+package com.example.demo.domain.egoSkill.imbeddable;
 
 import com.example.demo.util.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,15 +1,19 @@
-package com.example.demo.domain.Ego.imbeddable;
+package com.example.demo.domain.corrosionSkill.imbeddable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Data
 @Embeddable
-public class Sync3Info {
+@Data
+public class CoinEffectInfo {
 
-    @JsonProperty("pass1")
-    private PassiveInfo passiveInfo;
+    @JsonProperty("start")
+    private String coinDefEffect;
+
+    @JsonProperty("h1")
+    private String coinHitEffect;
 
 }
