@@ -1,12 +1,9 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.ego.Ego;
+import com.example.demo.dto.SinnerDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,15 +11,16 @@ import java.util.List;
 @Entity
 @Table(name = "sinner")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
-@Setter
+@Builder
 public class Sinner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String character;
+    private String name;
 
     private String image;
 
@@ -30,4 +28,9 @@ public class Sinner {
     @OneToMany(mappedBy = "sinner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ego> egos;
 
+    public static Sinner toEntity(SinnerDto dto){
+        return Sinner.builder()
+                .name(dto.getName())
+                .build();
+    }
 }

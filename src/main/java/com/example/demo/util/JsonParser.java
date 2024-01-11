@@ -1,11 +1,7 @@
 package com.example.demo.util;
 
-import com.example.demo.domain.corrosionSkill.CorrosionSkill;
-import com.example.demo.domain.ego.Ego;
-import com.example.demo.domain.egoSkill.EgoSkill;
-import com.example.demo.domain.identity.Identity;
-import com.example.demo.domain.identity.IdentityPassive;
-import com.example.demo.domain.identity.IdentitySupPassive;
+import com.example.demo.domain.*;
+import com.example.demo.dto.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -16,7 +12,7 @@ import java.util.List;
 
 public class JsonParser {
 
-    public static List<Ego> parseJsonForEgo(String filePath) throws IOException {
+    public static List<EgoDto> parseJsonForEgo(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
@@ -24,35 +20,36 @@ public class JsonParser {
 
     }
 
-    public static List<EgoSkill> parseJsonForEgoSkill(String filePath) throws IOException {
+    public static List<EgoSkillDto> parseJsonForEgoSkill(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
         });
     }
 
-    public static List<CorrosionSkill> parseJsonForEgoCorrosionSkill(String filePath) throws IOException {
+    public static List<CorrosionSkillDto> parseJsonForEgoCorrosionSkill(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
         });
     }
 
-    public static List<Identity> parseJsonForIdentity(String filePath) throws IOException {
+    public static List<IdentityDto> parseJsonForIdentity(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
         });
     }
 
-    public static List<IdentityPassive> parseJsonForIdentityPassive(String filePath) throws IOException {
+    public static List<IdentityPassiveDto> parseJsonForIdentityPassive(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
         });
     }
 
-    public static List<IdentitySupPassive> parseJsonForIdentitySupPassive(String filePath) throws IOException {
+
+    public static List<IdentitySkill> parseJsonForIdentitySkill(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {
