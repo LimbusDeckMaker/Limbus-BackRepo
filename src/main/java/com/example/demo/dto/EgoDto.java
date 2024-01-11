@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.domain.Ego;
 import com.example.demo.domain.Sinner;
-import com.example.demo.domain.imbeddable.ego.Passive;
+import com.example.demo.imbeddable.ego.Passive;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

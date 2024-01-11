@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.domain.Identity;
 import com.example.demo.domain.Sinner;
-import com.example.demo.domain.imbeddable.identity.Status;
+import com.example.demo.imbeddable.identity.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,7 +29,9 @@ public class IdentityDto implements Serializable {
     @JsonProperty("name")
     String name;
 
-    String image;
+    String beforeImage;
+
+    String afterImage;
 
     List<String> resistance;
 

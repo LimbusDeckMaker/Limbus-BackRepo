@@ -1,6 +1,5 @@
 package com.example.demo.util;
 
-import com.example.demo.domain.*;
 import com.example.demo.dto.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,7 +48,28 @@ public class JsonParser {
     }
 
 
-    public static List<IdentitySkill> parseJsonForIdentitySkill(String filePath) throws IOException {
+    public static List<IdentitySkill1Dto> parseJsonForIdentitySkill1(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
+    }
+
+    public static List<IdentitySkill2Dto> parseJsonForIdentitySkill2(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
+    }
+
+    public static List<IdentitySkill3Dto> parseJsonForIdentitySkill3(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.readValue(new File(filePath), new TypeReference<>() {
+        });
+    }
+
+    public static List<IdentityDefSkillDto> parseJsonForIdentityDefSkill(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper.readValue(new File(filePath), new TypeReference<>() {

@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.imbeddable.ego.Passive;
+import com.example.demo.imbeddable.ego.Passive;
 import com.example.demo.dto.EgoDto;
 import com.example.demo.util.StringListConverter;
 import jakarta.persistence.*;

@@ -1,15 +1,13 @@
 package com.example.demo.domain;
-import com.example.demo.domain.imbeddable.corrosionSkill.Skill;
+
 import com.example.demo.dto.CorrosionSkillDto;
+import com.example.demo.imbeddable.corrosionSkill.Skill;
 import com.example.demo.util.StringListConverter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "corrosion_skill")
 @AllArgsConstructor
@@ -23,7 +21,6 @@ public class CorrosionSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("name")
     private String name;
 
     private String image;

@@ -60,11 +60,13 @@ public class Sync4EgoDBInitService {
 
 
                 EgoSkillDto egoSkillDto = findEgoSkillForEgo(egoSkills, ego.getName());
+                egoSkillDto.setConstrueLevel(4);
                 egoSkillDto.setEgo(ego);
                 EgoSkill egoSkill = EgoSkill.toEntity(egoSkillDto);
                 egoSkillRepository.save(egoSkill);
 
                 CorrosionSkillDto egoCorSkillDto = findEgoCorSkillForEgo(corSkills, ego.getName());
+                egoCorSkillDto.setConstrueLevel(4);
                 egoCorSkillDto.setEgo(ego);
                 CorrosionSkill egoCorSkill = CorrosionSkill.toEntity(egoCorSkillDto);
                 corrosionSkillRepository.save(egoCorSkill);

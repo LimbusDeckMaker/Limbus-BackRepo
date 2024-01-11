@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.imbeddable.egoSkill.Skill;
+import com.example.demo.imbeddable.egoSkill.Skill;
 import com.example.demo.dto.EgoSkillDto;
 import com.example.demo.util.StringListConverter;
 import jakarta.persistence.*;
