@@ -13,10 +13,10 @@ import java.io.IOException;
 @Slf4j
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class Sync4EgoDBInitServiceTest {
+class EgoDBInitServiceTest {
 
     @Autowired
-    private Sync4EgoDBInitService sync4EgoDBInitService;
+    private EgoDBInitService egoDBInitService;
 
     @Autowired
     private SinnerDBInitService sinnerDBInitService;
@@ -46,18 +46,18 @@ class Sync4EgoDBInitServiceTest {
         String outisEgoPath = "src/main/java/com/example/demo/json/ego/OutisData.json";
         String gregorEgoPath = "src/main/java/com/example/demo/json/ego/GregorData.json";
 
-        sync4EgoDBInitService.processAndSaveData(yiSangEgoPath);
-        sync4EgoDBInitService.processAndSaveData(faustEgoPath);
-        sync4EgoDBInitService.processAndSaveData(donQuixoteEgoPath);
-        sync4EgoDBInitService.processAndSaveData(ryoShuEgoPath);
-        sync4EgoDBInitService.processAndSaveData(merusaultEgoPath);
-        sync4EgoDBInitService.processAndSaveData(hongLuEgoPath);
-        sync4EgoDBInitService.processAndSaveData(heathcliffEgoPath);
-        sync4EgoDBInitService.processAndSaveData(ishmaelEgoPath);
-        sync4EgoDBInitService.processAndSaveData(rodionEgoPath);
-        sync4EgoDBInitService.processAndSaveData(sinclairEgoPath);
-        sync4EgoDBInitService.processAndSaveData(outisEgoPath);
-        sync4EgoDBInitService.processAndSaveData(gregorEgoPath);
+        egoDBInitService.processAndSaveData(yiSangEgoPath);
+        egoDBInitService.processAndSaveData(faustEgoPath);
+        egoDBInitService.processAndSaveData(donQuixoteEgoPath);
+        egoDBInitService.processAndSaveData(ryoShuEgoPath);
+        egoDBInitService.processAndSaveData(merusaultEgoPath);
+        egoDBInitService.processAndSaveData(hongLuEgoPath);
+        egoDBInitService.processAndSaveData(heathcliffEgoPath);
+        egoDBInitService.processAndSaveData(ishmaelEgoPath);
+        egoDBInitService.processAndSaveData(rodionEgoPath);
+        egoDBInitService.processAndSaveData(sinclairEgoPath);
+        egoDBInitService.processAndSaveData(outisEgoPath);
+        egoDBInitService.processAndSaveData(gregorEgoPath);
     }
 
 }

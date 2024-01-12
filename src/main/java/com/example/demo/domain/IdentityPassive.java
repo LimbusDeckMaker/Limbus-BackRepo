@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
-import com.example.demo.dto.IdentityPassiveDto;
+import com.example.demo.dto.sync3.Sync3IdentityPassiveDto;
+import com.example.demo.dto.sync4.Sync4IdentityPassiveDto;
 import com.example.demo.imbeddable.identity.Passive;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,11 +27,20 @@ public class IdentityPassive {
     private Integer level;
 
     // Identity - 다대일
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "identity_id")
     private Identity identity;
 
-    public static IdentityPassive toEntity(IdentityPassiveDto dto){
+    public static IdentityPassive toEntity(Sync3IdentityPassiveDto dto){
+        return IdentityPassive.builder()
+                .identityName(dto.getIdentityName())
+                .passive(dto.getPassive())
+                .level(dto.getLevel())
+                .identity(dto.getIdentity())
+                .build();
+    }
+
+    public static IdentityPassive toEntity(Sync4IdentityPassiveDto dto){
         return IdentityPassive.builder()
                 .identityName(dto.getIdentityName())
                 .passive(dto.getPassive())

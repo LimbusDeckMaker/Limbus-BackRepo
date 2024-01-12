@@ -1,8 +1,8 @@
-package com.example.demo.dto;
+package com.example.demo.dto.sync4;
 
-import com.example.demo.domain.CorrosionSkill;
 import com.example.demo.domain.Ego;
-import com.example.demo.imbeddable.corrosionSkill.Skill;
+import com.example.demo.domain.EgoSkill;
+import com.example.demo.imbeddable.egoSkill.Skill;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embedded;
@@ -15,15 +15,15 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * DTO for {@link CorrosionSkill}
+ * DTO for {@link EgoSkill}
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class CorrosionSkillDto implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Sync4EgoSkillDto implements Serializable {
 
     @JsonProperty("name")
     String name;

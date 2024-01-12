@@ -45,8 +45,11 @@ public class Ego {
     @JoinColumn(name = "sinner_id")
     private Sinner sinner;
 
-    @OneToOne(mappedBy = "ego", cascade = CascadeType.ALL, orphanRemoval = true)
-    private EgoSkill egoSkill;
+    @OneToMany(mappedBy = "ego", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EgoSkill> egoSkills;
+
+    @OneToMany(mappedBy = "ego", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CorrosionSkill> egoCorSkills;
 
 
     public static Ego toEntity(EgoDto dto) {

@@ -1,8 +1,8 @@
-package com.example.demo.dto;
+package com.example.demo.dto.sync3;
 
 import com.example.demo.domain.Identity;
-import com.example.demo.domain.IdentitySkill2;
-import com.example.demo.imbeddable.identity.Skill2;
+import com.example.demo.domain.IdentityDefSkill;
+import com.example.demo.imbeddable.identity.DefSkill;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embedded;
@@ -14,21 +14,21 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * DTO for {@link IdentitySkill2}
+ * DTO for {@link IdentityDefSkill}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class IdentitySkill2Dto implements Serializable {
+public class Sync3IdentityDefSkillDto implements Serializable {
 
     @JsonProperty("name")
     String identityName;
 
-    @JsonProperty("sync4")
+    @JsonProperty("sync3")
     @Embedded
-    Skill2 skill2;
+    DefSkill defSkill;
 
     Integer level;
 

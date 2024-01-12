@@ -11,10 +11,10 @@ import java.io.IOException;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class Sync4IdentityDBInitServiceTest {
+class IdentityDBInitServiceTest {
 
     @Autowired
-    private Sync4IdentityDBInitService sync4IdentityDBInitService;
+    private IdentityDBInitService identityDBInitService;
 
     @Autowired
     private SinnerDBInitService sinnerDBInitService;
@@ -42,17 +42,17 @@ class Sync4IdentityDBInitServiceTest {
         String sinclairEgoPath = "src/main/java/com/example/demo/json/identity/SinclairData.json";
         String outisEgoPath = "src/main/java/com/example/demo/json/identity/OutisData.json";
         String gregorEgoPath = "src/main/java/com/example/demo/json/identity/GregorData.json";
-        sync4IdentityDBInitService.processAndSaveData(yiSangEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(faustEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(donQuixoteEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(ryoShuEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(merusaultEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(hongLuEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(heathcliffEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(ishmaelEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(rodionEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(sinclairEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(outisEgoPath);
-        sync4IdentityDBInitService.processAndSaveData(gregorEgoPath);
+        identityDBInitService.processAndSaveData(yiSangEgoPath);
+        identityDBInitService.processAndSaveData(faustEgoPath);
+        identityDBInitService.processAndSaveData(donQuixoteEgoPath);
+        identityDBInitService.processAndSaveData(ryoShuEgoPath);
+        identityDBInitService.processAndSaveData(merusaultEgoPath);
+        identityDBInitService.processAndSaveData(hongLuEgoPath);
+        identityDBInitService.processAndSaveData(heathcliffEgoPath);
+        identityDBInitService.processAndSaveData(ishmaelEgoPath);
+        identityDBInitService.processAndSaveData(rodionEgoPath);
+        identityDBInitService.processAndSaveData(sinclairEgoPath);
+        identityDBInitService.processAndSaveData(outisEgoPath);
+        identityDBInitService.processAndSaveData(gregorEgoPath);
     }
 }

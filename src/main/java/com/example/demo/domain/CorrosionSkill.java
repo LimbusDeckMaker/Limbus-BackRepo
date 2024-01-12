@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
-import com.example.demo.dto.CorrosionSkillDto;
+import com.example.demo.dto.sync4.Sync4CorrosionSkillDto;
+import com.example.demo.dto.sync3.Sync3CorrosionSkillDto;
 import com.example.demo.imbeddable.corrosionSkill.Skill;
 import com.example.demo.util.StringListConverter;
 import jakarta.persistence.*;
@@ -34,11 +35,11 @@ public class CorrosionSkill {
     private Integer construeLevel;
 
     // Ego와의 관계 - 다대일
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ego_id")
     private Ego ego;
 
-    public static CorrosionSkill toEntity(CorrosionSkillDto dto){
+    public static CorrosionSkill toEntity(Sync3CorrosionSkillDto dto){
         return CorrosionSkill.builder()
                 .name(dto.getName())
                 .image(dto.getImage())
@@ -48,4 +49,16 @@ public class CorrosionSkill {
                 .ego(dto.getEgo())
                 .build();
     }
+
+    public static CorrosionSkill toEntity(Sync4CorrosionSkillDto dto){
+        return CorrosionSkill.builder()
+                .name(dto.getName())
+                .image(dto.getImage())
+                .resistance(dto.getResistance())
+                .skill(dto.getSkill())
+                .construeLevel(dto.getConstrueLevel())
+                .ego(dto.getEgo())
+                .build();
+    }
+
 }

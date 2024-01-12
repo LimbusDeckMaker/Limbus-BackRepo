@@ -1,9 +1,8 @@
 package com.example.demo.domain;
 
-import com.example.demo.imbeddable.identity.Status;
 import com.example.demo.dto.IdentityDto;
+import com.example.demo.imbeddable.identity.Status;
 import com.example.demo.util.StringListConverter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,20 +48,20 @@ public class Identity {
     @JoinColumn(name = "sinner_id")
     private Sinner sinner;
 
-    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IdentityPassive identityPassive;
+    @OneToMany(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IdentityPassive> identityPassive;
 
-    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IdentitySkill1 identitySkill1;
+    @OneToMany(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IdentitySkill1> identitySkill1;
 
-    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IdentitySkill2 identitySkill2;
+    @OneToMany(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IdentitySkill2> identitySkill;
 
-    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IdentitySkill3 identitySkill3;
+    @OneToMany(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IdentitySkill3> identitySkill3;
 
-    @OneToOne(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IdentityDefSkill identityDefSkill;
+    @OneToMany(mappedBy = "identity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IdentityDefSkill> identityDefSkill;
 
 
     public static Identity toEntity(IdentityDto dto) {
