@@ -63,25 +63,21 @@ public class EgoDBInitService {
                 egoRepository.save(ego);
 
                 Sync3EgoSkillDto sync3EgoSkillDto = findEgoSync3SkillForEgo(sync3EgoSkills, ego.getName());
-                sync3EgoSkillDto.setConstrueLevel(3);
                 sync3EgoSkillDto.setEgo(ego);
                 EgoSkill sync3egoSkill = EgoSkill.toEntity(sync3EgoSkillDto);
                 egoSkillRepository.save(sync3egoSkill);
 
                 Sync4EgoSkillDto sync4EgoSkillDto = findEgoSkillForEgo(egoSkills, ego.getName());
-                sync4EgoSkillDto.setConstrueLevel(4);
                 sync4EgoSkillDto.setEgo(ego);
                 EgoSkill egoSkill = EgoSkill.toEntity(sync4EgoSkillDto);
                 egoSkillRepository.save(egoSkill);
 
                 Sync3CorrosionSkillDto sync3EgoCorSkillDto = findEgoSync3CorSkillForEgo(sync3CorSkills, ego.getName());
-                sync3EgoCorSkillDto.setConstrueLevel(3);
                 sync3EgoCorSkillDto.setEgo(ego);
                 CorrosionSkill sync3egoCorSkill = CorrosionSkill.toEntity(sync3EgoCorSkillDto);
                 corrosionSkillRepository.save(sync3egoCorSkill);
 
                 Sync4CorrosionSkillDto egoCorSkillDto = findEgoCorSkillForEgo(corSkills, ego.getName());
-                egoCorSkillDto.setConstrueLevel(4);
                 egoCorSkillDto.setEgo(ego);
                 CorrosionSkill egoCorSkill = CorrosionSkill.toEntity(egoCorSkillDto);
                 corrosionSkillRepository.save(egoCorSkill);

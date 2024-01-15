@@ -30,7 +30,7 @@ public class Sync4IdentitySkill2Dto implements Serializable {
     @Embedded
     Skill2 skill2;
 
-    Integer level;
+    Integer level = 4;
 
     Identity identity;
 }

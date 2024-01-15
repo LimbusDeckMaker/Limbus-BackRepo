@@ -22,6 +22,7 @@ class IdentityDBInitServiceTest {
     @Test
     @Order(1)
     public void testInputSinner(){
+
         sinnerDBInitService.InputSinner();
 
     }
@@ -30,18 +31,18 @@ class IdentityDBInitServiceTest {
     @Test
     @Order(2)
     void testProcessAndSaveData() throws IOException {
-        String yiSangEgoPath = "src/main/java/com/example/demo/json/identity/YiSangData.json";
-        String faustEgoPath = "src/main/java/com/example/demo/json/identity/FaustData.json";
-        String donQuixoteEgoPath = "src/main/java/com/example/demo/json/identity/DonQuixoteData.json";
-        String ryoShuEgoPath = "src/main/java/com/example/demo/json/identity/RyoShuData.json";
-        String merusaultEgoPath = "src/main/java/com/example/demo/json/identity/MeursaultData.json";
-        String hongLuEgoPath = "src/main/java/com/example/demo/json/identity/HongLuData.json";
-        String heathcliffEgoPath = "src/main/java/com/example/demo/json/identity/HeathcliffData.json";
-        String ishmaelEgoPath = "src/main/java/com/example/demo/json/identity/IshmaelData.json";
-        String rodionEgoPath = "src/main/java/com/example/demo/json/identity/RodionData.json";
-        String sinclairEgoPath = "src/main/java/com/example/demo/json/identity/SinclairData.json";
-        String outisEgoPath = "src/main/java/com/example/demo/json/identity/OutisData.json";
-        String gregorEgoPath = "src/main/java/com/example/demo/json/identity/GregorData.json";
+        String yiSangEgoPath = "src/main/resources/json/identity/YiSangData.json";
+        String faustEgoPath = "src/main/resources/json/identity/FaustData.json";
+        String donQuixoteEgoPath = "src/main/resources/json/identity/DonQuixoteData.json";
+        String ryoShuEgoPath = "src/main/resources/json/identity/RyoShuData.json";
+        String merusaultEgoPath = "src/main/resources/json/identity/MeursaultData.json";
+        String hongLuEgoPath = "src/main/resources/json/identity/HongLuData.json";
+        String heathcliffEgoPath = "src/main/resources/json/identity/HeathcliffData.json";
+        String ishmaelEgoPath = "src/main/resources/json/identity/IshmaelData.json";
+        String rodionEgoPath = "src/main/resources/json/identity/RodionData.json";
+        String sinclairEgoPath = "src/main/resources/json/identity/SinclairData.json";
+        String outisEgoPath = "src/main/resources/json/identity/OutisData.json";
+        String gregorEgoPath = "src/main/resources/json/identity/GregorData.json";
         identityDBInitService.processAndSaveData(yiSangEgoPath);
         identityDBInitService.processAndSaveData(faustEgoPath);
         identityDBInitService.processAndSaveData(donQuixoteEgoPath);

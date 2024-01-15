@@ -2,7 +2,7 @@ package com.example.demo.dto.sync4;
 
 import com.example.demo.domain.Ego;
 import com.example.demo.domain.EgoSkill;
-import com.example.demo.imbeddable.egoSkill.Skill;
+import com.example.demo.imbeddable.ego.Skill;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embedded;
@@ -37,7 +37,7 @@ public class Sync4EgoSkillDto implements Serializable {
     @JsonProperty("sync4")
     Skill skill;
 
-    Integer construeLevel;
+    Integer construeLevel = 4;
 
     Ego ego;
 }

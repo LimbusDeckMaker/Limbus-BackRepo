@@ -1,6 +1,7 @@
-package com.example.demo.imbeddable.corrosionSkill;
+package com.example.demo.imbeddable.ego;
 
 
+import com.example.demo.imbeddable.CoinEffectInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
@@ -9,7 +10,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Embeddable
 @Data
-public class CorrosionSkillInfo {
+public class SkillInfo {
 
     @JsonProperty("attack")
     private String power;

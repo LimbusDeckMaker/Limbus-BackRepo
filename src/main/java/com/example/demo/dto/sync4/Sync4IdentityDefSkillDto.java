@@ -30,7 +30,7 @@ public class Sync4IdentityDefSkillDto implements Serializable {
     @Embedded
     DefSkill defSkill;
 
-    Integer level;
+    Integer level = 4;
 
     Identity identity;
 }

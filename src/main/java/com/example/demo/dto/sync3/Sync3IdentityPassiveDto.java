@@ -30,7 +30,7 @@ public class Sync3IdentityPassiveDto implements Serializable {
     @JsonProperty("sync3")
     Passive passive;
 
-    Integer level;
+    Integer level = 3;
 
     Identity identity;
 

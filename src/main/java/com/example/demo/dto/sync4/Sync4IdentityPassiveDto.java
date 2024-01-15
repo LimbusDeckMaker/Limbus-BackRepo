@@ -27,7 +27,7 @@ public class Sync4IdentityPassiveDto implements Serializable {
     @JsonProperty("sync4")
     Passive passive;
 
-    Integer level;
+    Integer level = 4;
 
     Identity identity;
 

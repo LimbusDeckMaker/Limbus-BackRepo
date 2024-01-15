@@ -1,4 +1,4 @@
-package com.example.demo.imbeddable.corrosionSkill;
+package com.example.demo.imbeddable.ego;
 
 import com.example.demo.util.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,8 +14,8 @@ import java.util.List;
 @Embeddable
 public class Skill {
 
-    @JsonProperty("skill2")
-    private CorrosionSkillInfo skillInfo;
+    @JsonProperty("skill1")
+    private SkillInfo skillInfo;
 
     @Convert(converter = StringListConverter.class)
     @JsonProperty("cost")

@@ -1,7 +1,7 @@
 package com.example.demo.domain;
 
 import com.example.demo.dto.sync3.Sync3EgoSkillDto;
-import com.example.demo.imbeddable.egoSkill.Skill;
+import com.example.demo.imbeddable.ego.Skill;
 import com.example.demo.dto.sync4.Sync4EgoSkillDto;
 import com.example.demo.util.StringListConverter;
 import jakarta.persistence.*;

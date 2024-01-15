@@ -1,8 +1,10 @@
 package com.example.demo.imbeddable.identity;
 
+import com.example.demo.imbeddable.CoinEffectInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,8 +24,11 @@ public class SkillInfo {
     @JsonProperty("prop")
     private String resource;
 
+    @Transient
     @JsonProperty("skill")
-    private String skillSeq;
+    private String skillNumber;
+
+    private Integer skillSeq;
 
     private String quantity;
 
@@ -41,5 +46,22 @@ public class SkillInfo {
 
     @JsonProperty("hit")
     private CoinEffectInfo coinEffect;
+
+
+    private Integer extractSkillSeqNumber(String skillNumber) {
+        if (skillNumber == null || skillNumber.isEmpty()) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(skillNumber.replaceAll("\\D+", ""));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public void setSkillNumber(String skillNumber) {
+        this.skillNumber = skillNumber;
+        this.skillSeq = extractSkillSeqNumber(skillNumber);
+    }
 
 }

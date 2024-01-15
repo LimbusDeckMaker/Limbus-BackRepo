@@ -22,29 +22,29 @@ class EgoDBInitServiceTest {
     private SinnerDBInitService sinnerDBInitService;
 
 
-//    @Test
-//    @Order(1)
-//    public void testInputSinner(){
-//        sinnerDBInitService.InputSinner();
-//    }
+    @Test
+    @Order(1)
+    public void testInputSinner(){
+        sinnerDBInitService.InputSinner();
+    }
 
 
     @Test
     @Order(2)
     public void testProcessAndSaveData() throws IOException {
 
-        String yiSangEgoPath = "src/main/java/com/example/demo/json/ego/YiSangData.json";
-        String faustEgoPath = "src/main/java/com/example/demo/json/ego/FaustData.json";
-        String donQuixoteEgoPath = "src/main/java/com/example/demo/json/ego/DonQuixoteData.json";
-        String ryoShuEgoPath = "src/main/java/com/example/demo/json/ego/RyoShuData.json";
-        String merusaultEgoPath = "src/main/java/com/example/demo/json/ego/MeursaultData.json";
-        String hongLuEgoPath = "src/main/java/com/example/demo/json/ego/HongLuData.json";
-        String heathcliffEgoPath = "src/main/java/com/example/demo/json/ego/HeathcliffData.json";
-        String ishmaelEgoPath = "src/main/java/com/example/demo/json/ego/IshmaelData.json";
-        String rodionEgoPath = "src/main/java/com/example/demo/json/ego/RodionData.json";
-        String sinclairEgoPath = "src/main/java/com/example/demo/json/ego/SinclairData.json";
-        String outisEgoPath = "src/main/java/com/example/demo/json/ego/OutisData.json";
-        String gregorEgoPath = "src/main/java/com/example/demo/json/ego/GregorData.json";
+        String yiSangEgoPath = "src/main/resources/json/ego/YiSangData.json";
+        String faustEgoPath = "src/main/resources/json/ego/FaustData.json";
+        String donQuixoteEgoPath = "src/main/resources/json/ego/DonQuixoteData.json";
+        String ryoShuEgoPath = "src/main/resources/json/ego/RyoShuData.json";
+        String merusaultEgoPath = "src/main/resources/json/ego/MeursaultData.json";
+        String hongLuEgoPath = "src/main/resources/json/ego/HongLuData.json";
+        String heathcliffEgoPath = "src/main/resources/json/ego/HeathcliffData.json";
+        String ishmaelEgoPath = "src/main/resources/json/ego/IshmaelData.json";
+        String rodionEgoPath = "src/main/resources/json/ego/RodionData.json";
+        String sinclairEgoPath = "src/main/resources/json/ego/SinclairData.json";
+        String outisEgoPath = "src/main/resources/json/ego/OutisData.json";
+        String gregorEgoPath = "src/main/resources/json/ego/GregorData.json";
 
         egoDBInitService.processAndSaveData(yiSangEgoPath);
         egoDBInitService.processAndSaveData(faustEgoPath);

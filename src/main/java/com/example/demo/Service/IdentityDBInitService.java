@@ -7,13 +7,16 @@ import com.example.demo.dto.sync4.*;
 import com.example.demo.repository.*;
 import com.example.demo.util.JsonParser;
 import com.example.demo.util.SinnerNameMapping;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class IdentityDBInitService {
 
@@ -39,7 +42,7 @@ public class IdentityDBInitService {
         this.identityDefSkillRepository = identityDefSkillRepository;
     }
 
-
+    @Transactional
     public void processAndSaveData(String jsonFilePath) throws IOException {
         String fileName = Paths.get(jsonFilePath).getFileName().toString();
         String sinnerName = SinnerNameMapping.extractSinnerFromFile(fileName);
@@ -77,62 +80,52 @@ public class IdentityDBInitService {
                 identityRepository.save(identity);
 
                 Sync3IdentityPassiveDto sync3IdentityPassiveDto = findSync3PassiveForIdentity(sync3IdentityPassives, identity.getName());
-                sync3IdentityPassiveDto.setLevel(3);
                 sync3IdentityPassiveDto.setIdentity(identity);
                 IdentityPassive sync3IdentityPassive = IdentityPassive.toEntity(sync3IdentityPassiveDto);
                 identityPassiveRepository.save(sync3IdentityPassive);
 
                 Sync4IdentityPassiveDto sync4IdentityPassiveDto = findPassiveForIdentity(identityPassives, identity.getName());
-                sync4IdentityPassiveDto.setLevel(4);
                 sync4IdentityPassiveDto.setIdentity(identity);
                 IdentityPassive identityPassive = IdentityPassive.toEntity(sync4IdentityPassiveDto);
                 identityPassiveRepository.save(identityPassive);
 
                 Sync3IdentitySkill1Dto sync3IdentitySkill1Dto = findSync3Skill1ForIdentity(sync3IdentitySkill1s, identity.getName());
-                sync3IdentitySkill1Dto.setLevel(3);
                 sync3IdentitySkill1Dto.setIdentity(identity);
                 IdentitySkill1 sync3IdentitySkill1 = IdentitySkill1.toEntity(sync3IdentitySkill1Dto);
                 identitySkill1Repository.save(sync3IdentitySkill1);
 
                 Sync4IdentitySkill1Dto identitySkill1Dto = findSkill1ForIdentity(identitySkill1s, identity.getName());
-                identitySkill1Dto.setLevel(4);
                 identitySkill1Dto.setIdentity(identity);
                 IdentitySkill1 identitySkill1 = IdentitySkill1.toEntity(identitySkill1Dto);
                 identitySkill1Repository.save(identitySkill1);
 
                 Sync3IdentitySkill2Dto sync3IdentitySkill2Dto = findSync3Skill2ForIdentity(sync3IdentitySkill2s, identity.getName());
-                sync3IdentitySkill2Dto.setLevel(3);
                 sync3IdentitySkill2Dto.setIdentity(identity);
                 IdentitySkill2 sync3IdentitySkill2 = IdentitySkill2.toEntity(sync3IdentitySkill2Dto);
                 identitySkill2Repository.save(sync3IdentitySkill2);
 
                 Sync4IdentitySkill2Dto sync4IdentitySkill2Dto = findSkill2ForIdentity(identitySkill2s, identity.getName());
-                sync4IdentitySkill2Dto.setLevel(4);
                 sync4IdentitySkill2Dto.setIdentity(identity);
                 IdentitySkill2 identitySkill2 = IdentitySkill2.toEntity(sync4IdentitySkill2Dto);
                 identitySkill2Repository.save(identitySkill2);
 
                 Sync3IdentitySkill3Dto sync3IdentitySkill3Dto = findSync3Skill3ForIdentity(sync3IdentitySkill3s, identity.getName());
-                sync3IdentitySkill3Dto.setLevel(3);
                 sync3IdentitySkill3Dto.setIdentity(identity);
                 IdentitySkill3 sync3IdentitySkill3 = IdentitySkill3.toEntity(sync3IdentitySkill3Dto);
                 identitySkill3Repository.save(sync3IdentitySkill3);
 
                 Sync4IdentitySkill3Dto sync4IdentitySkill3Dto = findSkill3ForIdentity(identitySkill3s, identity.getName());
-                sync4IdentitySkill3Dto.setLevel(4);
                 sync4IdentitySkill3Dto.setIdentity(identity);
                 IdentitySkill3 identitySkill3 = IdentitySkill3.toEntity(sync4IdentitySkill3Dto);
                 identitySkill3Repository.save(identitySkill3);
 
 
                 Sync3IdentityDefSkillDto sync3IdentityDefSkillDto = findSync3DefSkillForIdentity(sync3IdentityDefSkills, identity.getName());
-                sync3IdentityDefSkillDto.setLevel(3);
                 sync3IdentityDefSkillDto.setIdentity(identity);
                 IdentityDefSkill sync3IdentityDefSkill = IdentityDefSkill.toEntity(sync3IdentityDefSkillDto);
                 identityDefSkillRepository.save(sync3IdentityDefSkill);
 
                 Sync4IdentityDefSkillDto sync4IdentityDefSkillDto = findDefSkillForIdentity(identityDefSkills, identity.getName());
-                sync4IdentityDefSkillDto.setLevel(4);
                 sync4IdentityDefSkillDto.setIdentity(identity);
                 IdentityDefSkill identityDefSkill = IdentityDefSkill.toEntity(sync4IdentityDefSkillDto);
                 identityDefSkillRepository.save(identityDefSkill);

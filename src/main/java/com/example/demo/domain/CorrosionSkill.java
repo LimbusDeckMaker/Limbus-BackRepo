@@ -2,7 +2,7 @@ package com.example.demo.domain;
 
 import com.example.demo.dto.sync4.Sync4CorrosionSkillDto;
 import com.example.demo.dto.sync3.Sync3CorrosionSkillDto;
-import com.example.demo.imbeddable.corrosionSkill.Skill;
+import com.example.demo.imbeddable.ego.CorSkill;
 import com.example.demo.util.StringListConverter;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +30,7 @@ public class CorrosionSkill {
     private List<String> resistance;
 
 
-    private Skill skill;
+    private CorSkill corSkill;
 
     private Integer construeLevel;
 
@@ -44,7 +44,7 @@ public class CorrosionSkill {
                 .name(dto.getName())
                 .image(dto.getImage())
                 .resistance(dto.getResistance())
-                .skill(dto.getSkill())
+                .corSkill(dto.getCorSkill())
                 .construeLevel(dto.getConstrueLevel())
                 .ego(dto.getEgo())
                 .build();
@@ -55,7 +55,7 @@ public class CorrosionSkill {
                 .name(dto.getName())
                 .image(dto.getImage())
                 .resistance(dto.getResistance())
-                .skill(dto.getSkill())
+                .corSkill(dto.getCorSkill())
                 .construeLevel(dto.getConstrueLevel())
                 .ego(dto.getEgo())
                 .build();
