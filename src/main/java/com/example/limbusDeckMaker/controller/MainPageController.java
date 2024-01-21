@@ -2,6 +2,7 @@ package com.example.limbusDeckMaker.controller;
 
 import com.example.limbusDeckMaker.service.YouTubeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,16 +14,23 @@ import java.security.GeneralSecurityException;
 @RequestMapping("/main")
 public class MainPageController {
 
-    @Autowired
-    private YouTubeService youTubeService;
+    private final YouTubeService youTubeService;
+
+    public MainPageController(YouTubeService youTubeService) {
+        this.youTubeService = youTubeService;
+    }
 
     @GetMapping("/youtube")
-    public String getLatestVideo() {
+    public ResponseEntity<String> getLatestVideo() {
         try {
-            return youTubeService.getLatestVideoByChannel();
+            String videoId = youTubeService.getLatestVideoByChannel();
+
+            String jsonResponse = "{\"videoId\": \"" + videoId + "\"}";
+            return ResponseEntity.ok(jsonResponse);
+
         } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace();
-            return null;
+            return ResponseEntity.status(500).body("An error occurred.");
         }
     }
 }
