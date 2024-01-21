@@ -1,4 +1,4 @@
-name: HoeStory Github Action
+name: Java CI GitHub Action
  
 on:
   push:
