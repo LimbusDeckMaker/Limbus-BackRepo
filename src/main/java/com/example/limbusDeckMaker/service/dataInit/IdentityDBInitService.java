@@ -65,9 +65,6 @@ public class IdentityDBInitService {
         List<Sync3IdentityDefSkillDto> sync3IdentityDefSkills = JsonParser.parseJsonForIdentitySync3DefSkill(jsonFilePath);
         List<Sync4IdentityDefSkillDto> identityDefSkills = JsonParser.parseJsonForIdentityDefSkill(jsonFilePath);
 
-
-
-
         Optional<Sinner> sinnerOptional = sinnerRepository.findByName(sinnerName);
 
 

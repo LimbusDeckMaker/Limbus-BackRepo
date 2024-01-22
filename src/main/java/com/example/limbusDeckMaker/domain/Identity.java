@@ -25,7 +25,11 @@ public class Identity {
 
     private String beforeImage;
 
+    private String beforeZoomImage;
+
     private String afterImage;
+
+    private String afterZoomImage;
 
     @Convert(converter = StringListConverter.class)
     private List<String> resistance;
@@ -67,8 +71,6 @@ public class Identity {
     public static Identity toEntity(IdentityDto dto) {
         return Identity.builder()
                 .name(dto.getName())
-                .beforeImage(dto.getBeforeImage())
-                .afterImage(dto.getAfterImage())
                 .resistance(dto.getResistance())
                 .status(dto.getStatus())
                 .affiliation(dto.getAffiliation())
@@ -79,4 +81,21 @@ public class Identity {
                 .sinner(dto.getSinner())
                 .build();
     }
+
+    public void updateBeforeImage(String newImage){
+        this.beforeImage = newImage;
+    }
+
+    public void updateBeforeZoomImage(String newImage){
+        this.beforeZoomImage = newImage;
+    }
+
+    public void updateAfterImage(String newImage){
+        this.afterImage = newImage;
+    }
+
+    public void updateAfterZoomImage(String newImage){
+        this.afterZoomImage = newImage;
+    }
+
 }

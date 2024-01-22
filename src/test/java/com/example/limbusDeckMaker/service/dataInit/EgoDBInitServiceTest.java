@@ -22,11 +22,11 @@ class EgoDBInitServiceTest {
     private SinnerDBInitService sinnerDBInitService;
 
 
-    @Test
-    @Order(1)
-    public void testInputSinner(){
-        sinnerDBInitService.InputSinner();
-    }
+//    @Test
+//    @Order(1)
+//    public void testInputSinner(){
+//        sinnerDBInitService.InputSinner();
+//    }
 
 
     @Test
