@@ -28,6 +28,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: true
+        token: ${{ secrets.GH_PAT }}
 
     # (2) 서브 모듈 update initalizing
     - name: Update submodules
