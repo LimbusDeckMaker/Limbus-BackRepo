@@ -25,6 +25,8 @@ public class Ego {
 
     private String image;
 
+    private String zoomImage;
+
     private String grade;
 
     @Convert(converter = StringListConverter.class)
@@ -34,7 +36,6 @@ public class Ego {
     private Passive passive;
 
     private LocalDate releaseDate;
-
 
     private String obtainingMethod;
 
@@ -55,7 +56,6 @@ public class Ego {
     public static Ego toEntity(EgoDto dto) {
         return Ego.builder()
                 .name(dto.getName())
-                .image(dto.getImage())
                 .grade(dto.getGrade())
                 .resistance(dto.getResistance())
                 .passive(dto.getPassive())
@@ -66,5 +66,12 @@ public class Ego {
                 .build();
     }
 
+    public void updateImage(String newImage){
+        this.image = newImage;
+    }
+
+    public void updateZoomImage(String newImage){
+        this.zoomImage = newImage;
+    }
 
 }

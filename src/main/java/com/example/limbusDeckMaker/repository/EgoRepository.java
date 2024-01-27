@@ -10,5 +10,5 @@ public interface EgoRepository extends JpaRepository<Ego, Long> {
     @Override
     Optional<Ego> findById(Long aLong);
 
-
+    Optional<Ego> findBySinner_NameAndName(String sinnerName, String egoName);
 }
