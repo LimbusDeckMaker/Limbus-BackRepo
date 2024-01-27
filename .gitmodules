@@ -1,0 +1,3 @@
+[submodule "SpringConfig"]
+	path = SpringConfig
+	url = https://github.com/LimbusDeckMaker/SpringConfig.git
