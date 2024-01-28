@@ -9,13 +9,20 @@ DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
 TIME_NOW=$(date +%c)
 
-# build 파일 복사
-echo "$TIME_NOW > $JAR_FILE 파일 복사" >> $DEPLOY_LOG
+# Copy build file
+echo "$TIME_NOW > Copy file from $PROJECT_ROOT/build/libs/*.jar to $JAR_FILE" >> $DEPLOY_LOG
 cp $PROJECT_ROOT/build/libs/*.jar $JAR_FILE
 
-# jar 파일 실행
-echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
-nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
+# Checking if the JAR file exists
+if [ -f "$JAR_FILE" ]; then
+    echo "$TIME_NOW > JAR file found, proceeding to execution" >> $DEPLOY_LOG
 
-CURRENT_PID=$(pgrep -f $JAR_FILE)
-echo "$TIME_NOW > 실행된 프로세스 아이디 $CURRENT_PID 입니다." >> $DEPLOY_LOG
+    # Run jar file
+    echo "$TIME_NOW > Execute file $JAR_FILE" >> $DEPLOY_LOG
+    nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
+
+    CURRENT_PID=$(pgrep -f $JAR_FILE)
+    echo "$TIME_NOW > The executed process ID is $CURRENT_PID." >> $DEPLOY_LOG
+else
+    echo "$TIME_NOW > JAR file not found, check the build process" >> $DEPLOY_LOG
+fi
