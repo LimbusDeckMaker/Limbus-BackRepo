@@ -1475,7 +1475,7 @@
     "sync3": {
       "life": 165,
       "speed": "4-7",
-      "defend": 37,
+      "defend": "45(+5)",
       "skill1": {
         "skilltype": "공격",
         "skill": "s1",
