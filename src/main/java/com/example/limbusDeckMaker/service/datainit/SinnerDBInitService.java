@@ -1,4 +1,4 @@
-package com.example.limbusDeckMaker.service.dataInit;
+package com.example.limbusDeckMaker.service.datainit;
 
 import com.example.limbusDeckMaker.domain.Sinner;
 import com.example.limbusDeckMaker.repository.SinnerRepository;

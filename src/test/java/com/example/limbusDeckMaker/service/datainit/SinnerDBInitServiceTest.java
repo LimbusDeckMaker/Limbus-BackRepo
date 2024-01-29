@@ -1,4 +1,4 @@
-package com.example.limbusDeckMaker.service.dataInit;
+package com.example.limbusDeckMaker.service.datainit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
