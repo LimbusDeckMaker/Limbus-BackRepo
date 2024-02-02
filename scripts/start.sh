@@ -7,7 +7,7 @@ APP_LOG="$PROJECT_ROOT/application.log"
 ERROR_LOG="$PROJECT_ROOT/error.log"
 DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
-TIME_NOW=$(date +%c)
+TIME_NOW=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Copy build file
 echo "$TIME_NOW > Copy file from $PROJECT_ROOT/build/libs/*.jar to $JAR_FILE" >> $DEPLOY_LOG
