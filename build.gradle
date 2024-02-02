@@ -52,8 +52,8 @@ processResources.dependsOn('copySecret')
 
 tasks.register('copySecret', Copy) {
     from './SpringConfig'
-    include "application.properties"  // 복사할 파일들
-    into 'src/main/resources'  // 복사 위치
+    include "application.properties"
+    into 'src/main/resources'
 }
 
 //tasks.named('test') {
