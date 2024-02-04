@@ -2,7 +2,6 @@ package com.example.limbusDeckMaker.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,6 @@ import java.util.Date;
 @Entity
 @Table(name = "board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class Board {
 
     @Id
@@ -28,10 +26,4 @@ public class Board {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    public Board(Long id, String title, Date date, String content) {
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.content = content;
-    }
 }
