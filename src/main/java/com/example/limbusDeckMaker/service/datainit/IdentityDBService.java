@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-public class IdentityDBInitService {
+public class IdentityDBService {
 
     private final SinnerRepository sinnerRepository;
     private final IdentityRepository identityRepository;
@@ -52,7 +51,7 @@ public class IdentityDBInitService {
     private final JsonParser jsonParser;
 
 
-    public IdentityDBInitService(SinnerRepository sinnerRepository,
+    public IdentityDBService(SinnerRepository sinnerRepository,
         IdentityRepository identityRepository,
         IdentityPassiveRepository identityPassiveRepository,
         IdentitySkill1Repository identitySkill1Repository,
@@ -159,9 +158,9 @@ public class IdentityDBInitService {
         dtos.stream()
             .filter(condition)
             .forEach(dto -> {
-                setIdentityIfPresent(dto, identity); // Separate method to set identity
-                R entity = toEntityFunction.apply(dto); // Convert DTO to entity
-                repository.save(entity); // Save the entity
+                setIdentityIfPresent(dto, identity);
+                R entity = toEntityFunction.apply(dto);
+                repository.save(entity);
             });
     }
 
@@ -176,16 +175,4 @@ public class IdentityDBInitService {
         }
     }
 
-//    private <T, R> void processDto(List<T> dtos, Identity identity, Predicate<T> condition,
-//        Function<T, R> toEntityFunction, JpaRepository<R, ?> repository) {
-//        findEntity(dtos, condition)
-//            .ifPresent(dto -> {
-//                R entity = toEntityFunction.apply(dto);
-//                repository.save(entity);
-//            });
-//    }
-//
-//    private <T> Optional<T> findEntity(List<T> entities, Predicate<T> condition) {
-//        return entities.stream().filter(condition).findFirst();
-//    }
 }

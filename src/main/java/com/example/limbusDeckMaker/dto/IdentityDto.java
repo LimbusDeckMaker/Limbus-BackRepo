@@ -29,6 +29,8 @@ public class IdentityDto implements Serializable {
     @JsonProperty("name")
     String name;
 
+    String character;
+
     String beforeImage;
 
     String afterImage;

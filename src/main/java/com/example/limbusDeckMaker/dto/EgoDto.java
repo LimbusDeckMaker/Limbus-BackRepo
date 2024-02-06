@@ -30,6 +30,8 @@ public class EgoDto implements Serializable {
     @JsonProperty("name")
     String name;
 
+    String character;
+
     String image;
 
     List<String> resistance;

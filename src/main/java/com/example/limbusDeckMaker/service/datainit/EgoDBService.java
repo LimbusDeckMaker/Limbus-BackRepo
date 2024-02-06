@@ -1,113 +1,120 @@
 package com.example.limbusDeckMaker.service.datainit;
 
-import com.example.limbusDeckMaker.domain.*;
+import com.example.limbusDeckMaker.domain.CorrosionSkill;
+import com.example.limbusDeckMaker.domain.Ego;
+import com.example.limbusDeckMaker.domain.EgoSkill;
+import com.example.limbusDeckMaker.dto.EgoDto;
 import com.example.limbusDeckMaker.dto.sync3.Sync3CorrosionSkillDto;
 import com.example.limbusDeckMaker.dto.sync3.Sync3EgoSkillDto;
 import com.example.limbusDeckMaker.dto.sync4.Sync4CorrosionSkillDto;
-import com.example.limbusDeckMaker.dto.EgoDto;
 import com.example.limbusDeckMaker.dto.sync4.Sync4EgoSkillDto;
 import com.example.limbusDeckMaker.repository.CorrosionSkillRepository;
 import com.example.limbusDeckMaker.repository.EgoRepository;
 import com.example.limbusDeckMaker.repository.EgoSkillRepository;
 import com.example.limbusDeckMaker.repository.SinnerRepository;
 import com.example.limbusDeckMaker.util.JsonParser;
-import com.example.limbusDeckMaker.util.SinnerNameMapping;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @Transactional
-public class EgoDBInitService {
+public class EgoDBService {
 
     private final SinnerRepository sinnerRepository;
     private final EgoRepository egoRepository;
     private final EgoSkillRepository egoSkillRepository;
     private final CorrosionSkillRepository corrosionSkillRepository;
+    private final JsonParser jsonParser;
 
-    public EgoDBInitService(SinnerRepository sinnerRepository, EgoRepository egoRepository,
-                            EgoSkillRepository egoSkillRepository, CorrosionSkillRepository corrosionSkillRepository) {
+    public EgoDBService(SinnerRepository sinnerRepository, EgoRepository egoRepository,
+        EgoSkillRepository egoSkillRepository, CorrosionSkillRepository corrosionSkillRepository,
+        JsonParser jsonParser) {
         this.sinnerRepository = sinnerRepository;
         this.egoRepository = egoRepository;
         this.egoSkillRepository = egoSkillRepository;
         this.corrosionSkillRepository = corrosionSkillRepository;
+        this.jsonParser = jsonParser;
     }
 
     @Transactional
-    public void processAndSaveData(String jsonFilePath) throws IOException {
-        List<EgoDto> egos = JsonParser.parseJsonForEgo(jsonFilePath);
-        List<Sync3EgoSkillDto> sync3EgoSkills = JsonParser.parseJsonForSync3EgoSkill(jsonFilePath);
-        List<Sync4EgoSkillDto> egoSkills = JsonParser.parseJsonForEgoSkill(jsonFilePath);
-        List<Sync3CorrosionSkillDto> sync3CorSkills = JsonParser.parseJsonForEgoSync3CorSkill(jsonFilePath);
-        List<Sync4CorrosionSkillDto> corSkills = JsonParser.parseJsonForEgoCorSkill(jsonFilePath);
+    public void processAndSaveData(String fileKey) throws IOException {
+        List<EgoDto> egos = jsonParser.parseJsonFromS3(fileKey,
+            new TypeReference<>() {
+            });
+        List<Sync3EgoSkillDto> sync3EgoSkills = jsonParser.parseJsonFromS3(fileKey,
+            new TypeReference<>() {
+            });
+        List<Sync4EgoSkillDto> sync4EgoSkills = jsonParser.parseJsonFromS3(fileKey,
+            new TypeReference<>() {
+            });
+        List<Sync3CorrosionSkillDto> sync3CorSkills = jsonParser.parseJsonFromS3(fileKey,
+            new TypeReference<>() {
+            });
+        List<Sync4CorrosionSkillDto> sync4CorSkills = jsonParser.parseJsonFromS3(fileKey,
+            new TypeReference<>() {
+            });
 
-
-        for (EgoDto egoDto : egos) {
-            Optional<Sinner> sinnerOptional = sinnerRepository.findByName(
-                egoDto.getCharacter());
-
-            Sinner sinner = sinnerOptional.get();
-
-            egoDto.setSinner(sinner);
+        egos.forEach(egoDto -> {
+            sinnerRepository.findByName(egoDto.getName()).ifPresent(
+                egoDto::setSinner);
             Ego ego = Ego.toEntity(egoDto);
             egoRepository.save(ego);
 
-            Sync3EgoSkillDto sync3EgoSkillDto = findEgoSync3SkillForEgo(sync3EgoSkills, ego.getName());
-            sync3EgoSkillDto.setEgo(ego);
-            EgoSkill sync3egoSkill = EgoSkill.toEntity(sync3EgoSkillDto);
-            egoSkillRepository.save(sync3egoSkill);
+            processDto(sync3EgoSkills, ego,
+                egoSKill -> egoSKill.getName().equals(ego.getName()),
+                EgoSkill::toEntity,
+                egoSkillRepository);
 
-            Sync4EgoSkillDto sync4EgoSkillDto = findEgoSkillForEgo(egoSkills, ego.getName());
-            sync4EgoSkillDto.setEgo(ego);
-            EgoSkill egoSkill = EgoSkill.toEntity(sync4EgoSkillDto);
-            egoSkillRepository.save(egoSkill);
+            processDto(sync4EgoSkills, ego,
+                egoSKill -> egoSKill.getName().equals(ego.getName()),
+                EgoSkill::toEntity,
+                egoSkillRepository);
 
-            Sync3CorrosionSkillDto sync3EgoCorSkillDto = findEgoSync3CorSkillForEgo(sync3CorSkills, ego.getName());
-            sync3EgoCorSkillDto.setEgo(ego);
-            CorrosionSkill sync3egoCorSkill = CorrosionSkill.toEntity(sync3EgoCorSkillDto);
-            corrosionSkillRepository.save(sync3egoCorSkill);
+            processDto(sync3CorSkills, ego,
+                corSKill -> corSKill.getName().equals(ego.getName()),
+                CorrosionSkill::toEntity,
+                corrosionSkillRepository);
 
-            Sync4CorrosionSkillDto egoCorSkillDto = findEgoCorSkillForEgo(corSkills, ego.getName());
-            egoCorSkillDto.setEgo(ego);
-            CorrosionSkill egoCorSkill = CorrosionSkill.toEntity(egoCorSkillDto);
-            corrosionSkillRepository.save(egoCorSkill);
+            processDto(sync4CorSkills, ego,
+                corSKill -> corSKill.getName().equals(ego.getName()),
+                CorrosionSkill::toEntity,
+                corrosionSkillRepository);
 
+        });
+
+    }
+
+
+    private <T, R> void processDto(List<T> dtos, Ego ego, Predicate<T> condition,
+        Function<T, R> toEntityFunction, JpaRepository<R, ?> repository) {
+        dtos.stream()
+            .filter(condition)
+            .forEach(dto -> {
+                setEgoIfPresent(dto, ego);
+                R entity = toEntityFunction.apply(dto);
+                repository.save(entity);
+            });
+    }
+
+    private <T> void setEgoIfPresent(T dto, Ego ego) {
+        try {
+            Method setEgoMethod = dto.getClass().getMethod("setIdentity", Ego.class);
+            setEgoMethod.invoke(dto, ego);
+        } catch (NoSuchMethodException e) {
+            System.out.println("No setIdentity method found for DTO: " + dto.getClass().getName());
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("Error setting identity for DTO: " + dto.getClass().getName(), e);
         }
     }
-    private Sync3EgoSkillDto findEgoSync3SkillForEgo(List<Sync3EgoSkillDto> egoSkills, String egoName) {
-        return egoSkills.stream()
-                .filter(egoSkill -> egoSkill.getName().equals(egoName))
-                .findFirst()
-                .orElse(null);
-    }
 
-
-    private Sync4EgoSkillDto findEgoSkillForEgo(List<Sync4EgoSkillDto> egoSkills, String egoName) {
-        return egoSkills.stream()
-                .filter(egoSkill -> egoSkill.getName().equals(egoName))
-                .findFirst()
-                .orElse(null);
-    }
-
-    private Sync3CorrosionSkillDto findEgoSync3CorSkillForEgo(List<Sync3CorrosionSkillDto> egoCorSkills, String egoName) {
-        return egoCorSkills.stream()
-                .filter(corrosionSkill -> corrosionSkill.getName().equals(egoName))
-                .findFirst()
-                .orElse(null);
-
-    }
-
-    private Sync4CorrosionSkillDto findEgoCorSkillForEgo(List<Sync4CorrosionSkillDto> egoCorSkills, String egoName) {
-        return egoCorSkills.stream()
-                .filter(corrosionSkill -> corrosionSkill.getName().equals(egoName))
-                .findFirst()
-                .orElse(null);
-
-    }
 }
