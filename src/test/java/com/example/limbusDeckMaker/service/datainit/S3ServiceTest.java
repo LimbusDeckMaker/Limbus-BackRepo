@@ -1,5 +1,6 @@
 package com.example.limbusDeckMaker.service.datainit;
 
+import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,10 @@ public class S3ServiceTest {
     @Test
     public void testGetAllImageUrls() {
         s3Service.processS3ObjectAndDBMapping();
+    }
+
+    @Test
+    public void testNewDataInput() throws IOException {
+        s3Service.awsS3NewIdentityDataDBInput("2024-02-06");
     }
 }
