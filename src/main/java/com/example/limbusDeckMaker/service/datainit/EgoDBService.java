@@ -39,50 +39,45 @@ public class EgoDBInitService {
         this.corrosionSkillRepository = corrosionSkillRepository;
     }
 
+    @Transactional
     public void processAndSaveData(String jsonFilePath) throws IOException {
-        String fileName = Paths.get(jsonFilePath).getFileName().toString();
-        String sinnerName = SinnerNameMapping.extractSinnerFromFile(fileName);
-
-        // JSON 파일에서 데이터 파싱
         List<EgoDto> egos = JsonParser.parseJsonForEgo(jsonFilePath);
         List<Sync3EgoSkillDto> sync3EgoSkills = JsonParser.parseJsonForSync3EgoSkill(jsonFilePath);
         List<Sync4EgoSkillDto> egoSkills = JsonParser.parseJsonForEgoSkill(jsonFilePath);
         List<Sync3CorrosionSkillDto> sync3CorSkills = JsonParser.parseJsonForEgoSync3CorSkill(jsonFilePath);
         List<Sync4CorrosionSkillDto> corSkills = JsonParser.parseJsonForEgoCorSkill(jsonFilePath);
 
-        // 추출된 Sinner ID로 Sinner 찾기
-        Optional<Sinner> sinnerOptional = sinnerRepository.findByName(sinnerName);
 
-        if (sinnerOptional.isPresent()) {
+        for (EgoDto egoDto : egos) {
+            Optional<Sinner> sinnerOptional = sinnerRepository.findByName(
+                egoDto.getCharacter());
+
             Sinner sinner = sinnerOptional.get();
 
-            for (EgoDto egoDto : egos) {
+            egoDto.setSinner(sinner);
+            Ego ego = Ego.toEntity(egoDto);
+            egoRepository.save(ego);
 
-                egoDto.setSinner(sinner);
-                Ego ego = Ego.toEntity(egoDto);
-                egoRepository.save(ego);
+            Sync3EgoSkillDto sync3EgoSkillDto = findEgoSync3SkillForEgo(sync3EgoSkills, ego.getName());
+            sync3EgoSkillDto.setEgo(ego);
+            EgoSkill sync3egoSkill = EgoSkill.toEntity(sync3EgoSkillDto);
+            egoSkillRepository.save(sync3egoSkill);
 
-                Sync3EgoSkillDto sync3EgoSkillDto = findEgoSync3SkillForEgo(sync3EgoSkills, ego.getName());
-                sync3EgoSkillDto.setEgo(ego);
-                EgoSkill sync3egoSkill = EgoSkill.toEntity(sync3EgoSkillDto);
-                egoSkillRepository.save(sync3egoSkill);
+            Sync4EgoSkillDto sync4EgoSkillDto = findEgoSkillForEgo(egoSkills, ego.getName());
+            sync4EgoSkillDto.setEgo(ego);
+            EgoSkill egoSkill = EgoSkill.toEntity(sync4EgoSkillDto);
+            egoSkillRepository.save(egoSkill);
 
-                Sync4EgoSkillDto sync4EgoSkillDto = findEgoSkillForEgo(egoSkills, ego.getName());
-                sync4EgoSkillDto.setEgo(ego);
-                EgoSkill egoSkill = EgoSkill.toEntity(sync4EgoSkillDto);
-                egoSkillRepository.save(egoSkill);
+            Sync3CorrosionSkillDto sync3EgoCorSkillDto = findEgoSync3CorSkillForEgo(sync3CorSkills, ego.getName());
+            sync3EgoCorSkillDto.setEgo(ego);
+            CorrosionSkill sync3egoCorSkill = CorrosionSkill.toEntity(sync3EgoCorSkillDto);
+            corrosionSkillRepository.save(sync3egoCorSkill);
 
-                Sync3CorrosionSkillDto sync3EgoCorSkillDto = findEgoSync3CorSkillForEgo(sync3CorSkills, ego.getName());
-                sync3EgoCorSkillDto.setEgo(ego);
-                CorrosionSkill sync3egoCorSkill = CorrosionSkill.toEntity(sync3EgoCorSkillDto);
-                corrosionSkillRepository.save(sync3egoCorSkill);
+            Sync4CorrosionSkillDto egoCorSkillDto = findEgoCorSkillForEgo(corSkills, ego.getName());
+            egoCorSkillDto.setEgo(ego);
+            CorrosionSkill egoCorSkill = CorrosionSkill.toEntity(egoCorSkillDto);
+            corrosionSkillRepository.save(egoCorSkill);
 
-                Sync4CorrosionSkillDto egoCorSkillDto = findEgoCorSkillForEgo(corSkills, ego.getName());
-                egoCorSkillDto.setEgo(ego);
-                CorrosionSkill egoCorSkill = CorrosionSkill.toEntity(egoCorSkillDto);
-                corrosionSkillRepository.save(egoCorSkill);
-
-            }
         }
     }
     private Sync3EgoSkillDto findEgoSync3SkillForEgo(List<Sync3EgoSkillDto> egoSkills, String egoName) {
