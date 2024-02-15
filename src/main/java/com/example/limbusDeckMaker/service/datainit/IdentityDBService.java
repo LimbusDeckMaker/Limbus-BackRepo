@@ -7,16 +7,8 @@ import com.example.limbusDeckMaker.domain.IdentitySkill1;
 import com.example.limbusDeckMaker.domain.IdentitySkill2;
 import com.example.limbusDeckMaker.domain.IdentitySkill3;
 import com.example.limbusDeckMaker.dto.IdentityDto;
-import com.example.limbusDeckMaker.dto.sync3.Sync3IdentityDefSkillDto;
-import com.example.limbusDeckMaker.dto.sync3.Sync3IdentityPassiveDto;
-import com.example.limbusDeckMaker.dto.sync3.Sync3IdentitySkill1Dto;
-import com.example.limbusDeckMaker.dto.sync3.Sync3IdentitySkill2Dto;
-import com.example.limbusDeckMaker.dto.sync3.Sync3IdentitySkill3Dto;
-import com.example.limbusDeckMaker.dto.sync4.Sync4IdentityDefSkillDto;
-import com.example.limbusDeckMaker.dto.sync4.Sync4IdentityPassiveDto;
-import com.example.limbusDeckMaker.dto.sync4.Sync4IdentitySkill1Dto;
-import com.example.limbusDeckMaker.dto.sync4.Sync4IdentitySkill2Dto;
-import com.example.limbusDeckMaker.dto.sync4.Sync4IdentitySkill3Dto;
+import com.example.limbusDeckMaker.dto.sync3.*;
+import com.example.limbusDeckMaker.dto.sync4.*;
 import com.example.limbusDeckMaker.repository.IdentityDefSkillRepository;
 import com.example.limbusDeckMaker.repository.IdentityPassiveRepository;
 import com.example.limbusDeckMaker.repository.IdentityRepository;
@@ -32,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -39,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 public class IdentityDBService {
 
     private final SinnerRepository sinnerRepository;
@@ -69,13 +63,17 @@ public class IdentityDBService {
         this.jsonParser = jsonParser;
     }
 
-    @Transactional
     public void processAndSaveData(String fileKey) throws IOException {
         List<IdentityDto> identities = jsonParser.parseJsonFromS3(fileKey,
             new TypeReference<>() {});
-        List<Sync3IdentityPassiveDto> sync3IdentityPassives = jsonParser.parseJsonFromS3(fileKey,
+
+        List<Sync3IdentitySupPassiveListDto> sync3IdentitySupPassives = jsonParser.parseJsonFromS3(fileKey,
+                new TypeReference<>() {});
+        List<Sync4IdentitySupPassiveListDto> sync4IdentitySupPassives = jsonParser.parseJsonFromS3(fileKey,
+                new TypeReference<>() {});
+        List<Sync3IdentityPassiveListDto> sync3IdentityPassives = jsonParser.parseJsonFromS3(fileKey,
             new TypeReference<>() {});
-        List<Sync4IdentityPassiveDto> sync4IdentityPassives = jsonParser.parseJsonFromS3(fileKey,
+        List<Sync4IdentityPassiveListDto> sync4IdentityPassives = jsonParser.parseJsonFromS3(fileKey,
             new TypeReference<>() {});
         List<Sync3IdentitySkill1Dto> sync3IdentitySkill1s = jsonParser.parseJsonFromS3(fileKey,
             new TypeReference<>() {});
@@ -94,21 +92,43 @@ public class IdentityDBService {
         List<Sync4IdentityDefSkillDto> sync4IdentityDefSkills = jsonParser.parseJsonFromS3(fileKey,
             new TypeReference<>() {});
 
+
         identities.forEach(identityDto -> {
             sinnerRepository.findByName(identityDto.getCharacter()).ifPresent(
                 identityDto::setSinner);
             Identity identity = Identity.toEntity(identityDto);
             identityRepository.save(identity);
 
-            processDto(sync3IdentityPassives, identity,
-                passive -> passive.getIdentityName().equals(identity.getName()),
-                IdentityPassive::toEntity,
-                identityPassiveRepository);
+            sync3IdentityPassives.forEach(dto ->{
+                if(dto.getIdentityName().equals(identity.getName())) {
+                    setIdentityIfPresent(dto, identity);
+                    List<IdentityPassive> identityPassives = IdentityPassive.toEntity(dto);
+                    identityPassiveRepository.saveAll(identityPassives);
+                }
+            });
 
-            processDto(sync4IdentityPassives, identity,
-                passive -> passive.getIdentityName().equals(identity.getName()),
-                IdentityPassive::toEntity,
-                identityPassiveRepository);
+            sync4IdentityPassives.forEach(dto ->{
+                if(dto.getIdentityName().equals(identity.getName())) {
+                    setIdentityIfPresent(dto, identity);
+                    List<IdentityPassive> identityPassives = IdentityPassive.toEntity(dto);
+                    identityPassiveRepository.saveAll(identityPassives);
+                }
+            });
+
+            sync3IdentitySupPassives.forEach(dto ->{
+                if(dto.getIdentityName().equals(identity.getName())) {
+                    setIdentityIfPresent(dto, identity);
+                    List<IdentityPassive> identityPassives = IdentityPassive.toEntity(dto);
+                    identityPassiveRepository.saveAll(identityPassives);
+                }
+            });
+            sync4IdentitySupPassives.forEach(dto ->{
+                if(dto.getIdentityName().equals(identity.getName())) {
+                    setIdentityIfPresent(dto, identity);
+                    List<IdentityPassive> identityPassives = IdentityPassive.toEntity(dto);
+                    identityPassiveRepository.saveAll(identityPassives);
+                }
+            });
 
             processDto(sync3IdentitySkill1s, identity,
                 skill1 -> skill1.getIdentityName().equals(identity.getName()),
@@ -163,6 +183,9 @@ public class IdentityDBService {
                 repository.save(entity);
             });
     }
+
+
+
 
     private <T> void setIdentityIfPresent(T dto, Identity identity) {
         try {
