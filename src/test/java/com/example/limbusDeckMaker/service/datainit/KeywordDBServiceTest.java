@@ -18,5 +18,6 @@ class KeywordDBServiceTest {
     @Test
     void processAndSaveData() throws IOException {
         keywordDBService.processAndSaveData("existedData/keyword/완성 키워드.json");
+        keywordDBService.processAndSaveData("existedData/keyword/추가 키워드.json");
     }
 }

@@ -65,7 +65,7 @@ public class EgoDBService {
             });
 
         egos.forEach(egoDto -> {
-            sinnerRepository.findByName(egoDto.getName()).ifPresent(
+            sinnerRepository.findByName(egoDto.getCharacter()).ifPresent(
                 egoDto::setSinner);
             Ego ego = Ego.toEntity(egoDto);
             egoRepository.save(ego);
@@ -108,7 +108,7 @@ public class EgoDBService {
 
     private <T> void setEgoIfPresent(T dto, Ego ego) {
         try {
-            Method setEgoMethod = dto.getClass().getMethod("setIdentity", Ego.class);
+            Method setEgoMethod = dto.getClass().getMethod("setEgo", Ego.class);
             setEgoMethod.invoke(dto, ego);
         } catch (NoSuchMethodException e) {
             System.out.println("No setIdentity method found for DTO: " + dto.getClass().getName());

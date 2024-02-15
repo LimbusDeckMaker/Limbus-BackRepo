@@ -1,18 +1,15 @@
 package com.example.limbusDeckMaker.imbeddable.identity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
-import lombok.Data;
+import lombok.*;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Data
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class Passive {
-
-    @JsonProperty("pass1")
     private PassiveInfo passiveInfo;
-
-    @JsonProperty("pass2")
-    private SupPassiveInfo supPassiveInfo;
 }

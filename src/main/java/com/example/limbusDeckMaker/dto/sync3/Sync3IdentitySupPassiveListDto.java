@@ -2,7 +2,7 @@ package com.example.limbusDeckMaker.dto.sync3;
 
 import com.example.limbusDeckMaker.domain.Identity;
 import com.example.limbusDeckMaker.domain.IdentityPassive;
-import com.example.limbusDeckMaker.imbeddable.identity.Passive;
+import com.example.limbusDeckMaker.imbeddable.identity.SupPassiveList;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embedded;
@@ -21,14 +21,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Sync3IdentityPassiveDto implements Serializable {
+public class Sync3IdentitySupPassiveListDto implements Serializable {
 
     @JsonProperty("name")
     String identityName;
 
     @Embedded
     @JsonProperty("sync3")
-    Passive passive;
+    SupPassiveList passiveList;
+
+    Boolean isMain = false;
 
     Integer level = 3;
 
