@@ -26,7 +26,7 @@ public class SinnerDBInitService {
                 .name("돈키호테").image(null).build();
 
         Sinner ryoShu = builder()
-                .name("로슈").image(null).build();
+                .name("료슈").image(null).build();
 
         Sinner meursault = builder()
                 .name("뫼르소").image(null).build();
