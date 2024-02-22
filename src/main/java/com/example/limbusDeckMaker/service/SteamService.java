@@ -3,17 +3,15 @@ package com.example.limbusDeckMaker.service;
 import com.example.limbusDeckMaker.dto.steam.SteamAPIResponse;
 import com.example.limbusDeckMaker.dto.steam.SteamNewsDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Date;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 
 @Slf4j
@@ -47,16 +45,14 @@ public class SteamService {
         return Optional.empty();
     }
 
-    public List<String> extractImageUrls(SteamNewsDto news) {
-        List<String> imageUrls = new ArrayList<>();
+    public String extractImageUrls(SteamNewsDto news) {
         String[] parts = news.getContents().split(" ");
         for (String part : parts) {
             if (part.startsWith("{STEAM_CLAN_IMAGE}")) {
-                String imageUrl = part.replace("{STEAM_CLAN_IMAGE}", "https://clan.akamai.steamstatic.com/images/");
-                imageUrls.add(imageUrl);
+                return part.replace("{STEAM_CLAN_IMAGE}", "https://clan.akamai.steamstatic.com/images/");
             }
         }
-        return imageUrls;
+        return null;
     }
 
     public Date convertUnixDate(SteamNewsDto news){
@@ -67,7 +63,7 @@ public class SteamService {
         List<SteamNewsDto> newsList = getNewsInfo();
 
         newsList.forEach(steamNewsDto -> {
-            steamNewsDto.setImageUrls(extractImageUrls(steamNewsDto));
+            steamNewsDto.setImageUrl(extractImageUrls(steamNewsDto));
             steamNewsDto.setRelease(convertUnixDate(steamNewsDto));
         });
 
