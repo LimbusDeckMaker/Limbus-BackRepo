@@ -3,6 +3,7 @@ package com.example.limbusDeckMaker.service;
 import com.example.limbusDeckMaker.dto.steam.SteamAPIResponse;
 import com.example.limbusDeckMaker.dto.steam.SteamNewsDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,13 @@ public class SteamService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private static final String GET_NEWS_FOR_LIMBUS_URL = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/" +
-            "?appid=1973530&count=5&maxlength=300&format=json ";
+            "?appid=1973530&count=3&maxlength=300&format=json ";
 
 
     public List<SteamNewsDto> getNewsInfo() throws IOException {
         URL steamNewsUrl = new URL(GET_NEWS_FOR_LIMBUS_URL);
         HttpURLConnection connection = (HttpURLConnection) steamNewsUrl.openConnection();
             connection.setRequestMethod("GET");
-
 
         SteamAPIResponse apiResponse = objectMapper.readValue(connection.getInputStream(), SteamAPIResponse.class);
         return apiResponse.getSteamAppNews().getNewsItems();
@@ -59,18 +59,19 @@ public class SteamService {
         return imageUrls;
     }
 
-    public SteamNewsDto getNewsContent(String titleKeyword, String contentKeyword) throws IOException {
-        List<SteamNewsDto> newsList = getNewsInfo();
-        Optional<SteamNewsDto> specificNews = findSpecificNews(newsList, titleKeyword, contentKeyword);
+    public Date convertUnixDate(SteamNewsDto news){
+        return new Date(news.getDate() * 1000L);
+    }
 
-        if (specificNews.isPresent()) {
-            SteamNewsDto news = specificNews.get();
-            List<String> imageUrls = extractImageUrls(news);
-            news.setImageUrls(imageUrls);
-            return news;
-        } else {
-            return new SteamNewsDto();
-        }
+    public List<SteamNewsDto> getNewsContent() throws IOException {
+        List<SteamNewsDto> newsList = getNewsInfo();
+
+        newsList.forEach(steamNewsDto -> {
+            steamNewsDto.setImageUrls(extractImageUrls(steamNewsDto));
+            steamNewsDto.setRelease(convertUnixDate(steamNewsDto));
+        });
+
+        return newsList;
     }
 
 }
