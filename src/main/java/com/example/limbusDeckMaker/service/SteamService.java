@@ -47,16 +47,14 @@ public class SteamService {
         return Optional.empty();
     }
 
-    public List<String> extractImageUrls(SteamNewsDto news) {
-        List<String> imageUrls = new ArrayList<>();
+    public String extractImageUrls(SteamNewsDto news) {
         String[] parts = news.getContents().split(" ");
         for (String part : parts) {
             if (part.startsWith("{STEAM_CLAN_IMAGE}")) {
-                String imageUrl = part.replace("{STEAM_CLAN_IMAGE}", "https://clan.akamai.steamstatic.com/images/");
-                imageUrls.add(imageUrl);
+                return part.replace("{STEAM_CLAN_IMAGE}", "https://clan.akamai.steamstatic.com/images/");
             }
         }
-        return imageUrls;
+        return null;
     }
 
     public Date convertUnixDate(SteamNewsDto news){
@@ -67,7 +65,7 @@ public class SteamService {
         List<SteamNewsDto> newsList = getNewsInfo();
 
         newsList.forEach(steamNewsDto -> {
-            steamNewsDto.setImageUrls(extractImageUrls(steamNewsDto));
+            steamNewsDto.setImageUrl(extractImageUrls(steamNewsDto));
             steamNewsDto.setRelease(convertUnixDate(steamNewsDto));
         });
 
