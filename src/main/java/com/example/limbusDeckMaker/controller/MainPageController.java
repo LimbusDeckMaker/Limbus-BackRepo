@@ -5,13 +5,14 @@ import com.example.limbusDeckMaker.service.SteamService;
 import com.example.limbusDeckMaker.service.YouTubeService;
 import com.example.limbusDeckMaker.util.Views;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.List;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 @RestController
 @RequestMapping("/main")
@@ -40,22 +41,19 @@ public class MainPageController {
     }
 
     @JsonView(Views.Public.class)
-    @GetMapping("/contents")
-    public ResponseEntity<SteamNewsDto> getSteamNewsContent() {
+    @GetMapping("/news")
+    public ResponseEntity<List<SteamNewsDto>> getSteamNewsContent() {
         try {
-            String titleKeyword = "New Target Extraction";
-            String contentKeyword = "{STEAM_CLAN_IMAGE}";
+            List<SteamNewsDto> steamNews = steamService.getNewsContent();
 
-            SteamNewsDto steamNewsContent = steamService.getNewsContent(titleKeyword, contentKeyword);
-
-            if (steamNewsContent != null && steamNewsContent.getUrl() != null) {
-                return ResponseEntity.ok(steamNewsContent);
+            if (!steamNews.isEmpty()) {
+                return ResponseEntity.ok(steamNews);
             } else {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }
