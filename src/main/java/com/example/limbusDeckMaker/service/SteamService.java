@@ -3,17 +3,15 @@ package com.example.limbusDeckMaker.service;
 import com.example.limbusDeckMaker.dto.steam.SteamAPIResponse;
 import com.example.limbusDeckMaker.dto.steam.SteamNewsDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Date;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 
 @Slf4j
