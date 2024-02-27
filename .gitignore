@@ -1,0 +1,12 @@
+# Gradle
+.gradle/
+gradle
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Ohter
+*.log
