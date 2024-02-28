@@ -47,6 +47,8 @@ public class Identity {
 
     private String afterZoomImage;
 
+    private String afterProfileImage;
+
     @Convert(converter = StringListConverter.class)
     private List<String> resistance;
 
@@ -113,6 +115,10 @@ public class Identity {
 
     public void updateAfterZoomImage(String newImage) {
         this.afterZoomImage = newImage;
+    }
+
+    public void updateAfterProfileImage(String newImage) {
+        this.afterProfileImage = newImage;
     }
 
 }
