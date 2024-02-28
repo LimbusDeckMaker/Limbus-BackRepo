@@ -84,6 +84,8 @@ public class S3Service {
                 if (url.contains("gacksung")) {
                     if (url.contains("info")) {
                         identity.updateAfterZoomImage(url);
+                    } else if (url.contains("profile")) {
+                        identity.updateAfterProfileImage(url);
                     } else {
                         identity.updateAfterImage(url);
                     }
