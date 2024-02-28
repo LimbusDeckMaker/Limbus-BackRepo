@@ -31,6 +31,8 @@ public class IdentityDto implements Serializable {
 
     String character;
 
+    Integer season;
+
     String beforeImage;
 
     String afterImage;

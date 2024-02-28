@@ -1,13 +1,27 @@
 package com.example.limbusDeckMaker.domain;
 
-import com.example.limbusDeckMaker.imbeddable.ego.Passive;
 import com.example.limbusDeckMaker.dto.EgoDto;
+import com.example.limbusDeckMaker.imbeddable.ego.Passive;
 import com.example.limbusDeckMaker.util.StringListConverter;
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "ego")
@@ -22,6 +36,8 @@ public class Ego {
     private Long id;
 
     private String name;
+
+    private Integer season;
 
     private String image;
 
@@ -55,22 +71,23 @@ public class Ego {
 
     public static Ego toEntity(EgoDto dto) {
         return Ego.builder()
-                .name(dto.getName())
-                .grade(dto.getGrade())
-                .resistance(dto.getResistance())
-                .passive(dto.getPassive())
-                .releaseDate(dto.getReleaseDate())
-                .obtainingMethod(dto.getObtainingMethod())
-                .keyword(dto.getKeyword())
-                .sinner(dto.getSinner())
-                .build();
+            .name(dto.getName())
+            .season(dto.getSeason())
+            .grade(dto.getGrade())
+            .resistance(dto.getResistance())
+            .passive(dto.getPassive())
+            .releaseDate(dto.getReleaseDate())
+            .obtainingMethod(dto.getObtainingMethod())
+            .keyword(dto.getKeyword())
+            .sinner(dto.getSinner())
+            .build();
     }
 
-    public void updateImage(String newImage){
+    public void updateImage(String newImage) {
         this.image = newImage;
     }
 
-    public void updateZoomImage(String newImage){
+    public void updateZoomImage(String newImage) {
         this.zoomImage = newImage;
     }
 
