@@ -23,6 +23,7 @@ public class IdentityInfoDto {
     private String beforeZoomImage;
     private String afterImage;
     private String afterZoomImage;
+    private String afterProfileImage;
     private String affiliation;
     private Integer grade;
     private Integer season;
@@ -51,6 +52,7 @@ public class IdentityInfoDto {
             .beforeZoomImage(identity.getBeforeZoomImage())
             .afterImage(identity.getAfterImage())
             .afterZoomImage(identity.getAfterZoomImage())
+            .afterProfileImage(identity.getAfterProfileImage())
             .affiliation(identity.getAffiliation())
             .grade(identity.getGrade())
             .season(identity.getSeason())
