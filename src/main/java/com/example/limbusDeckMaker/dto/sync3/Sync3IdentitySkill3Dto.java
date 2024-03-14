@@ -32,5 +32,9 @@ public class Sync3IdentitySkill3Dto implements Serializable {
 
     Integer level = 3;
 
+    Integer skillSeq = 3;
+
+    Integer quantity = 1;
+
     Identity identity;
 }

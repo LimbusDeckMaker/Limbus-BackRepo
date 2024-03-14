@@ -1,5 +1,6 @@
 package com.example.limbusDeckMaker.imbeddable.ego;
 
+import com.example.limbusDeckMaker.util.StringIntListConverter;
 import com.example.limbusDeckMaker.util.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +18,6 @@ public class Skill {
     @JsonProperty("skill1")
     private SkillInfo skillInfo;
 
-    @Convert(converter = StringListConverter.class)
-    @JsonProperty("cost")
-    private List<String> cost;
+    @Convert(converter = StringIntListConverter.class)
+    private List<Integer> cost;
 }
