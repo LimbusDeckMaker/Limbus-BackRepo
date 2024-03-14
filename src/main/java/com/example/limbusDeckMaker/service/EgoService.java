@@ -1,12 +1,10 @@
 package com.example.limbusDeckMaker.service;
 
 import com.example.limbusDeckMaker.domain.Ego;
-import com.example.limbusDeckMaker.domain.Identity;
 import com.example.limbusDeckMaker.dto.response.EgoDetailInfoDto;
 import com.example.limbusDeckMaker.dto.response.EgoListInfoDto;
 import com.example.limbusDeckMaker.repository.EgoRepository;
 import com.example.limbusDeckMaker.repository.specification.EgoSpecification;
-import com.example.limbusDeckMaker.repository.specification.IdentitySpecification;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

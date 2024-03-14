@@ -2,7 +2,6 @@ package com.example.limbusDeckMaker.dto.response;
 
 import com.example.limbusDeckMaker.domain.Identity;
 import com.example.limbusDeckMaker.imbeddable.identity.Status;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Embedded;
 import java.time.LocalDate;
 import java.util.List;

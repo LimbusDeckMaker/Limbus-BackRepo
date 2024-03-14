@@ -23,13 +23,11 @@ public class IdentityListInfoMapper {
                 identity.getIdentityDefSkill().stream().filter(s -> s.getLevel() == 4).map(s -> s.getDefSkill().getDefSkillInfo().getResource())
             )
             .flatMap(Function.identity())
-            .forEach(resource -> {
-                Arrays.stream(resource.split(",")).forEach(res -> {
-                    if (resources.contains(res.trim())) {
-                        uniqueResources.add(res.trim());
-                    }
-                });
-            });
+            .forEach(resource -> Arrays.stream(resource.split(",")).forEach(res -> {
+                if (resources.contains(res.trim())) {
+                    uniqueResources.add(res.trim());
+                }
+            }));
 
         List<String> usingResources = new ArrayList<>(uniqueResources);
         usingResources.sort(Comparator.naturalOrder());

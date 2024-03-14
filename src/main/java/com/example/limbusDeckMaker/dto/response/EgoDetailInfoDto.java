@@ -1,7 +1,6 @@
 package com.example.limbusDeckMaker.dto.response;
 
 import com.example.limbusDeckMaker.domain.Ego;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.Builder;
