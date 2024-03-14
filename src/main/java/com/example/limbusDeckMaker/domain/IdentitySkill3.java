@@ -4,9 +4,20 @@ import com.example.limbusDeckMaker.dto.sync3.Sync3IdentitySkill3Dto;
 import com.example.limbusDeckMaker.dto.sync4.Sync4IdentitySkill3Dto;
 import com.example.limbusDeckMaker.imbeddable.identity.Skill3;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Entity
@@ -34,21 +45,21 @@ public class IdentitySkill3 {
     @JoinColumn(name = "identity_id")
     private Identity identity;
 
-    public static IdentitySkill3 toEntity(Sync3IdentitySkill3Dto dto){
+    public static IdentitySkill3 toEntity(Sync3IdentitySkill3Dto dto) {
         return IdentitySkill3.builder()
-                .identityName(dto.getIdentityName())
-                .skill3(dto.getSkill3())
-                .level(dto.getLevel())
-                .identity(dto.getIdentity())
-                .build();
+            .identityName(dto.getIdentityName())
+            .skill3(dto.getSkill3())
+            .level(dto.getLevel())
+            .identity(dto.getIdentity())
+            .build();
     }
 
-    public static IdentitySkill3 toEntity(Sync4IdentitySkill3Dto dto){
+    public static IdentitySkill3 toEntity(Sync4IdentitySkill3Dto dto) {
         return IdentitySkill3.builder()
-                .identityName(dto.getIdentityName())
-                .skill3(dto.getSkill3())
-                .level(dto.getLevel())
-                .identity(dto.getIdentity())
-                .build();
+            .identityName(dto.getIdentityName())
+            .skill3(dto.getSkill3())
+            .level(dto.getLevel())
+            .identity(dto.getIdentity())
+            .build();
     }
 }

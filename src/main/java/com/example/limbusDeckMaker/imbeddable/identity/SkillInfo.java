@@ -4,7 +4,6 @@ import com.example.limbusDeckMaker.imbeddable.CoinEffectInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Transient;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,19 +17,15 @@ public class SkillInfo {
     @JsonProperty("level")
     private String power;
 
-    @JsonProperty("skilltype")
+    @JsonProperty("type")
     private String type;
 
     @JsonProperty("prop")
     private String resource;
 
-    @Transient
-    @JsonProperty("skill")
-    private String skillNumber;
-
     private Integer skillSeq;
 
-    private String quantity;
+    private Integer quantity;
 
     @JsonProperty("power")
     private Integer skillPower;
@@ -46,17 +41,5 @@ public class SkillInfo {
 
     @JsonProperty("hit")
     private CoinEffectInfo coinEffect;
-
-
-    private Integer extractSkillSeqNumber(String skillNumber) {
-        if (skillNumber == null || skillNumber.isEmpty()) {
-            return null;
-        }
-        try {
-            return Integer.parseInt(skillNumber.replaceAll("\\D+", ""));
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 
 }

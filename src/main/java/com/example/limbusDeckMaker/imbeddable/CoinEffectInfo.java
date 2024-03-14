@@ -16,7 +16,7 @@ public class CoinEffectInfo {
 
     @JsonProperty("h1")
     @Column(name = "coin1_effect")
-    private String coin1_Effect;
+    private String coin1Effect;
 
     @JsonProperty("h2")
     @Column(name = "coin2_effect")
