@@ -17,7 +17,7 @@ public class SkillInfo {
     @JsonProperty("level")
     private String power;
 
-    @JsonProperty("skilltype")
+    @JsonProperty("type")
     private String type;
 
     @JsonProperty("prop")
@@ -41,17 +41,5 @@ public class SkillInfo {
 
     @JsonProperty("hit")
     private CoinEffectInfo coinEffect;
-
-
-    private Integer extractSkillSeqNumber(String skillNumber) {
-        if (skillNumber == null || skillNumber.isEmpty()) {
-            return null;
-        }
-        try {
-            return Integer.parseInt(skillNumber.replaceAll("\\D+", ""));
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 
 }

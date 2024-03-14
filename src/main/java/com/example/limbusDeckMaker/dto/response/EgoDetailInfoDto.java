@@ -8,11 +8,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @Builder
-public class EgoInfoDto {
+public class EgoDetailInfoDto {
 
     private Long id;
     private String character;
@@ -33,8 +32,8 @@ public class EgoInfoDto {
     private List<EgoSkillInfo> egoskills;
     private List<EgoSkillInfo> egoCorSkills;
 
-    public static EgoInfoDto toDto(Ego ego) {
-        return EgoInfoDto.builder()
+    public static EgoDetailInfoDto toDto(Ego ego) {
+        return EgoDetailInfoDto.builder()
             .id(ego.getId())
             .character(ego.getSinner().getName())
             .name(ego.getName())
