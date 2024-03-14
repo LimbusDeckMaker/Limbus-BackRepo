@@ -1,0 +1,54 @@
+package com.example.limbusDeckMaker.dto.response;
+
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.*;
+
+import com.example.limbusDeckMaker.domain.Identity;
+import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
+public class IdentityListInfoDto {
+
+    private Long id;
+    private String name;
+    private String character;
+    private Integer season;
+    private Integer grade;
+    private String affiliation;
+    private String beforeImage;
+    private String afterImage;
+
+    private List<String> keyword;
+    private List<String> resources;
+    private List<String> types;
+
+    private Integer minSpeed;
+    private Integer maxSpeed;
+    private Integer minWeight;
+    private Integer maxWeight;
+
+    public static IdentityListInfoDto toDto(Identity identity) {
+        return IdentityListInfoDto.builder()
+            .id(identity.getId())
+            .character(identity.getSinner().getName())
+            .name(identity.getName())
+            .season(identity.getSeason())
+            .grade(identity.getGrade())
+            .affiliation(identity.getAffiliation())
+            .beforeImage(identity.getBeforeImage())
+            .afterImage(identity.getAfterImage())
+            .keyword(identity.getKeyword())
+            .resources(findUseResources(identity))
+            .types(findUseTypes(identity))
+            .minSpeed(parseMinSpeed(identity.getStatus().getSpeed()))
+            .maxSpeed(parseMaxSpeed(identity.getStatus().getSpeed()))
+            .minWeight(findMinWeight(identity))
+            .maxWeight(findMaxWeight(identity))
+            .build();
+    }
+
+}

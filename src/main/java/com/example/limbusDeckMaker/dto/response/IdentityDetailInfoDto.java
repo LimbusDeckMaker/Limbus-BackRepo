@@ -2,7 +2,6 @@ package com.example.limbusDeckMaker.dto.response;
 
 import com.example.limbusDeckMaker.domain.Identity;
 import com.example.limbusDeckMaker.imbeddable.identity.Status;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Embedded;
 import java.time.LocalDate;
 import java.util.List;
@@ -10,11 +9,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @Builder
-public class IdentityInfoDto {
+public class IdentityDetailInfoDto {
 
     private Long id;
     private String character;
@@ -43,8 +41,8 @@ public class IdentityInfoDto {
     private List<IdentityPassiveInfo> identityPassives;
 
 
-    public static IdentityInfoDto toDto(Identity identity) {
-        return IdentityInfoDto.builder()
+    public static IdentityDetailInfoDto toDto(Identity identity) {
+        return IdentityDetailInfoDto.builder()
             .id(identity.getId())
             .character(identity.getSinner().getName())
             .name(identity.getName())
