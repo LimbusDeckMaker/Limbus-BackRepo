@@ -1,7 +1,5 @@
 package com.example.limbusDeckMaker.dto.response;
 
-import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.*;
-
 import com.example.limbusDeckMaker.domain.Identity;
 import java.util.List;
 import lombok.Builder;

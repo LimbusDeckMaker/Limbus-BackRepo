@@ -1,16 +1,18 @@
 package com.example.limbusDeckMaker.service;
 
-import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.*;
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.findMaxWeight;
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.findMinWeight;
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.findUseResources;
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.findUseTypes;
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.parseMaxSpeed;
+import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.parseMinSpeed;
 
 import com.example.limbusDeckMaker.domain.Identity;
-import com.example.limbusDeckMaker.dto.response.EgoContext;
-import com.example.limbusDeckMaker.dto.response.EgoListInfoDto;
 import com.example.limbusDeckMaker.dto.response.IdentityContext;
 import com.example.limbusDeckMaker.dto.response.IdentityDetailInfoDto;
 import com.example.limbusDeckMaker.dto.response.IdentityListInfoDto;
 import com.example.limbusDeckMaker.repository.IdentityRepository;
 import com.example.limbusDeckMaker.repository.specification.IdentitySpecification;
-import com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +33,8 @@ public class IdentityService {
             .map(IdentityDetailInfoDto::toDto);
     }
 
-    public List<IdentityListInfoDto> getIdentityByCriteria(Long sinnerId, Integer season, Integer grade,
+    public List<IdentityListInfoDto> getIdentityByCriteria(Long sinnerId, Integer season,
+        Integer grade,
         String affiliation, List<String> keywords, List<String> resources, List<String> types,
         Integer minWeight, Integer maxWeight, Integer minSpeed, Integer maxSpeed) {
 
@@ -46,7 +49,7 @@ public class IdentityService {
         if (grade != null) {
             spec = spec.and(IdentitySpecification.hasGrade(grade));
         }
-        if (affiliation != null){
+        if (affiliation != null) {
             spec = spec.and(IdentitySpecification.hasAffiliation(affiliation));
         }
 
@@ -75,7 +78,8 @@ public class IdentityService {
         if (keywords == null || keywords.isEmpty()) {
             return true;
         }
-        return keywords.stream().allMatch(keyword -> context.getIdentity().getKeyword().contains(keyword));
+        return keywords.stream()
+            .allMatch(keyword -> context.getIdentity().getKeyword().contains(keyword));
     }
 
     private boolean matchesResources(IdentityContext context, List<String> resources) {
