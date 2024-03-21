@@ -44,9 +44,14 @@ public class DictionaryController {
     public ResponseEntity<List<EgoListInfoDto>> searchEgosByCriteria(
         @RequestParam(value = "id", required = false) Long id,
         @RequestParam(value = "season", required = false) Integer season,
-        @RequestParam(value = "grade", required = false) String grade) {
+        @RequestParam(value = "grade", required = false) String grade,
+        @RequestParam(value = "keyword", required = false) List<String> keywords,
+        @RequestParam(value = "resources", required = false) List<String> resources,
+        @RequestParam(value = "types", required = false) List<String> types,
+        @RequestParam(value = "minWeight", required = false) Integer minWeight,
+        @RequestParam(value = "maxWeight", required = false) Integer maxWeight) {
 
-        List<EgoListInfoDto> results = egoService.getEgoByCriteria(id, season, grade);
+        List<EgoListInfoDto> results = egoService.getEgoByCriteria(id, season, grade, keywords, resources, types, minWeight, maxWeight);
         if(results.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -57,7 +62,8 @@ public class DictionaryController {
     public ResponseEntity<List<IdentityListInfoDto>> searchIdentitiesByCriteria(
         @RequestParam(value = "id", required = false) Long id,
         @RequestParam(value = "season", required = false) Integer season,
-        @RequestParam(value = "grade", required = false) Integer grade) {
+        @RequestParam(value = "grade", required = false) Integer grade
+        ) {
 
         List<IdentityListInfoDto> results = identityService.getIdentityByCriteria(id, season, grade);
         if(results.isEmpty()) {
