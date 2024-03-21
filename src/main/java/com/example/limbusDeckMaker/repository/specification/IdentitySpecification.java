@@ -26,4 +26,12 @@ public class IdentitySpecification {
             return cb.equal(root.get("grade"), grade);
         };
     }
+
+    public static Specification<Identity> hasAffiliation(String affiliation) {
+        return (root, query, cb) -> {
+            if (affiliation == null)
+                return null;
+            return cb.equal(root.get("affiliation"), affiliation);
+        };
+    }
 }
