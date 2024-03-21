@@ -4,7 +4,10 @@ import com.example.limbusDeckMaker.domain.Ego;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class EgoListInfoMapper {
@@ -37,24 +40,20 @@ public class EgoListInfoMapper {
         return usingResources;
     }
 
-    public static String findSkillType(Ego ego) {
-        return ego.getEgoSkills().stream()
-            .filter(egoSkill -> egoSkill.getConstrueLevel() == 4)
-            .map(egoSkill -> egoSkill.getSkill().getSkillInfo().getAtkType())
-            .findFirst()
-            .orElse(null);
-    }
+    public static List<String> findUseTypes(Ego ego){
+        Set<String> uniqueTypes = new HashSet<>();
 
-    public static String findCorType(Ego ego) {
-        if (ego.getEgoCorSkills() == null){
-            return null;
-        }
+        Stream.concat(
+                ego.getEgoSkills().stream().filter(s -> s.getConstrueLevel() == 4)
+                    .map(egoSkill -> egoSkill.getSkill().getSkillInfo().getAtkType()),
+                ego.getEgoCorSkills().stream().filter(s -> s.getConstrueLevel() == 4)
+                    .map(corrosionSkill -> corrosionSkill.getCorSkill().getCorrosionSkillInfo().getAtkType())
+            )
+            .forEach(uniqueTypes::add);
 
-        return ego.getEgoCorSkills().stream()
-            .filter(egoCorSkill -> egoCorSkill.getConstrueLevel() == 4)
-            .map(egoCorSkill -> egoCorSkill.getCorSkill().getCorrosionSkillInfo().getAtkType())
-            .findFirst()
-            .orElse(null);
+        List<String> usingTypes = new ArrayList<>(uniqueTypes);
+        usingTypes.sort(Comparator.naturalOrder());
+        return usingTypes;
     }
 
     public static Integer findMinWeight(Ego ego) {
