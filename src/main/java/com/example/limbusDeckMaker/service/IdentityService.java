@@ -8,6 +8,7 @@ import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.
 import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.parseMinSpeed;
 
 import com.example.limbusDeckMaker.domain.Identity;
+import com.example.limbusDeckMaker.dto.response.IdentityBuildInfoDto;
 import com.example.limbusDeckMaker.dto.response.IdentityContext;
 import com.example.limbusDeckMaker.dto.response.IdentityDetailInfoDto;
 import com.example.limbusDeckMaker.dto.response.IdentityListInfoDto;
@@ -72,6 +73,11 @@ public class IdentityService {
             .filter(context -> matchesSpeed(context, minSpeed, maxSpeed))
             .map(context -> IdentityListInfoDto.toDto(context.getIdentity(), context))
             .collect(Collectors.toList());
+    }
+
+    public Optional<IdentityBuildInfoDto> getIdentityBuildInfo(Long identityId){
+        return identityRepository.findById(identityId)
+                .map(IdentityBuildInfoDto::toDto);
     }
 
     private boolean matchesKeywords(IdentityContext context, List<String> keywords) {

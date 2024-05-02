@@ -1,13 +1,17 @@
 package com.example.limbusDeckMaker.service;
 
+import static com.example.limbusDeckMaker.service.mapper.EgoBuildInfoMapper.countEgoResources;
 import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.*;
 
 import com.example.limbusDeckMaker.domain.Ego;
+import com.example.limbusDeckMaker.dto.response.EgoBuildInfoDto;
 import com.example.limbusDeckMaker.dto.response.EgoContext;
 import com.example.limbusDeckMaker.dto.response.EgoDetailInfoDto;
 import com.example.limbusDeckMaker.dto.response.EgoListInfoDto;
 import com.example.limbusDeckMaker.repository.EgoRepository;
 import com.example.limbusDeckMaker.repository.specification.EgoSpecification;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,6 +64,28 @@ public class EgoService {
             .map(context -> EgoListInfoDto.toDto(context.getEgo(), context))
             .collect(Collectors.toList());
 
+    }
+
+    public Optional<EgoBuildInfoDto> getEgoBuildInfo(List<Long> egoIds){
+        List<Ego> egos = egoRepository.findByIdIn(egoIds);
+
+        if(egos.isEmpty()){
+            return Optional.empty();
+        }
+
+        String characterName = egos.get(0).getSinner().getName();
+        List<EgoBuildInfoDto.Ego> dtoEgos = new ArrayList<>();
+
+        for (int i = 0; i < egos.size(); i++) {
+            com.example.limbusDeckMaker.domain.Ego domainEgo = egos.get(i);
+            List<Integer> resourceCounts = countEgoResources(domainEgo);
+            List<String> resourceCountsStr = resourceCounts.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.toList());
+            dtoEgos.add(new EgoBuildInfoDto.Ego(i + 1, resourceCountsStr));
+        }
+
+        return Optional.of(EgoBuildInfoDto.toDto(characterName, dtoEgos));
     }
 
     private boolean matchesKeywords(EgoContext context, List<String> keywords) {
