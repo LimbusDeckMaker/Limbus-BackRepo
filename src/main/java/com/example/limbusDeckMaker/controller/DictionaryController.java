@@ -44,10 +44,16 @@ public class DictionaryController {
     public ResponseEntity<List<EgoListInfoDto>> searchEgosByCriteria(
         @RequestParam(value = "id", required = false) Long id,
         @RequestParam(value = "season", required = false) Integer season,
-        @RequestParam(value = "grade", required = false) String grade) {
+        @RequestParam(value = "grade", required = false) String grade,
+        @RequestParam(value = "keyword", required = false) List<String> keywords,
+        @RequestParam(value = "resources", required = false) List<String> resources,
+        @RequestParam(value = "types", required = false) List<String> types,
+        @RequestParam(value = "minWeight", required = false) Integer minWeight,
+        @RequestParam(value = "maxWeight", required = false) Integer maxWeight) {
 
-        List<EgoListInfoDto> results = egoService.getEgoByCriteria(id, season, grade);
-        if(results.isEmpty()) {
+        List<EgoListInfoDto> results = egoService.getEgoByCriteria(id, season, grade, keywords,
+            resources, types, minWeight, maxWeight);
+        if (results.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(results);
@@ -57,10 +63,21 @@ public class DictionaryController {
     public ResponseEntity<List<IdentityListInfoDto>> searchIdentitiesByCriteria(
         @RequestParam(value = "id", required = false) Long id,
         @RequestParam(value = "season", required = false) Integer season,
-        @RequestParam(value = "grade", required = false) Integer grade) {
+        @RequestParam(value = "grade", required = false) Integer grade,
+        @RequestParam(value = "affiliation", required = false) String affiliation,
+        @RequestParam(value = "keyword", required = false) List<String> keywords,
+        @RequestParam(value = "resources", required = false) List<String> resources,
+        @RequestParam(value = "types", required = false) List<String> types,
+        @RequestParam(value = "minWeight", required = false) Integer minWeight,
+        @RequestParam(value = "maxWeight", required = false) Integer maxWeight,
+        @RequestParam(value = "minSpeed", required = false) Integer minSpeed,
+        @RequestParam(value = "maxSpeed", required = false) Integer maxSpeed
+    ) {
 
-        List<IdentityListInfoDto> results = identityService.getIdentityByCriteria(id, season, grade);
-        if(results.isEmpty()) {
+        List<IdentityListInfoDto> results = identityService.getIdentityByCriteria(id, season, grade,
+            affiliation, keywords, resources, types, minWeight, maxWeight, minSpeed, maxSpeed);
+
+        if (results.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(results);

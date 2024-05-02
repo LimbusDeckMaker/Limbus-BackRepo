@@ -1,11 +1,5 @@
 package com.example.limbusDeckMaker.dto.response;
 
-import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.findUseResources;
-import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.findCorType;
-import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.findMaxWeight;
-import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.findMinWeight;
-import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.findSkillType;
-
 import com.example.limbusDeckMaker.domain.Ego;
 import java.util.List;
 import lombok.Builder;
@@ -28,12 +22,11 @@ public class EgoListInfoDto {
     private List<String> keyword;
 
     private List<String> resources;
-    private String skillType;
-    private String corType;
+    private List<String> types;
     private Integer minWeight;
     private Integer maxWeight;
 
-    public static EgoListInfoDto toDto(Ego ego){
+    public static EgoListInfoDto toDto(Ego ego, EgoContext egoContext){
         return EgoListInfoDto.builder()
             .id(ego.getId())
             .character(ego.getSinner().getName())
@@ -43,11 +36,10 @@ public class EgoListInfoDto {
             .zoomImage(ego.getZoomImage())
             .grade(ego.getGrade())
             .keyword(ego.getKeyword())
-            .resources(findUseResources(ego))
-            .skillType(findSkillType(ego))
-            .corType(findCorType(ego))
-            .minWeight(findMinWeight(ego))
-            .maxWeight(findMaxWeight(ego))
+            .resources(egoContext.getResources())
+            .types(egoContext.getTypes())
+            .minWeight(egoContext.getMinWeight())
+            .maxWeight(egoContext.getMaxWeight())
             .build();
     }
 

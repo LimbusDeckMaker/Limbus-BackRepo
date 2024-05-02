@@ -1,7 +1,5 @@
 package com.example.limbusDeckMaker.dto.response;
 
-import static com.example.limbusDeckMaker.service.mapper.IdentityListInfoMapper.*;
-
 import com.example.limbusDeckMaker.domain.Identity;
 import java.util.List;
 import lombok.Builder;
@@ -31,7 +29,7 @@ public class IdentityListInfoDto {
     private Integer minWeight;
     private Integer maxWeight;
 
-    public static IdentityListInfoDto toDto(Identity identity) {
+    public static IdentityListInfoDto toDto(Identity identity, IdentityContext context) {
         return IdentityListInfoDto.builder()
             .id(identity.getId())
             .character(identity.getSinner().getName())
@@ -42,12 +40,12 @@ public class IdentityListInfoDto {
             .beforeImage(identity.getBeforeImage())
             .afterImage(identity.getAfterImage())
             .keyword(identity.getKeyword())
-            .resources(findUseResources(identity))
-            .types(findUseTypes(identity))
-            .minSpeed(parseMinSpeed(identity.getStatus().getSpeed()))
-            .maxSpeed(parseMaxSpeed(identity.getStatus().getSpeed()))
-            .minWeight(findMinWeight(identity))
-            .maxWeight(findMaxWeight(identity))
+            .resources(context.getResources())
+            .types(context.getTypes())
+            .minSpeed(context.getMinSpeed())
+            .maxSpeed(context.getMaxSpeed())
+            .minWeight(context.getMinWeight())
+            .maxWeight(context.getMaxWeight())
             .build();
     }
 
