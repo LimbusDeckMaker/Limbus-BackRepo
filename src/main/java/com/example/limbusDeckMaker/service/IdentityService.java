@@ -34,24 +34,24 @@ public class IdentityService {
             .map(IdentityDetailInfoDto::toDto);
     }
 
-    public List<IdentityListInfoDto> getIdentityByCriteria(Long sinnerId, Integer season,
-        Integer grade,
-        String affiliation, List<String> keywords, List<String> resources, List<String> types,
+    public List<IdentityListInfoDto> getIdentityByCriteria(List<String> sinnerNames, List<Integer> seasons,
+        List<Integer> grades,
+        List<String> affiliations, List<String> keywords, List<String> resources, List<String> types,
         Integer minWeight, Integer maxWeight, Integer minSpeed, Integer maxSpeed) {
 
         Specification<Identity> spec = Specification.where(null);
 
-        if (sinnerId != null) {
-            spec = spec.and(IdentitySpecification.hasSinnerId(sinnerId));
+        if (sinnerNames != null) {
+            spec = spec.and(IdentitySpecification.hasSinnerNames(sinnerNames));
         }
-        if (season != null) {
-            spec = spec.and(IdentitySpecification.hasSeason(season));
+        if (seasons != null) {
+            spec = spec.and(IdentitySpecification.hasSeasons(seasons));
         }
-        if (grade != null) {
-            spec = spec.and(IdentitySpecification.hasGrade(grade));
+        if (grades != null) {
+            spec = spec.and(IdentitySpecification.hasGrades(grades));
         }
-        if (affiliation != null) {
-            spec = spec.and(IdentitySpecification.hasAffiliation(affiliation));
+        if (affiliations != null) {
+            spec = spec.and(IdentitySpecification.hasAffiliations(affiliations));
         }
 
         List<Identity> identities = identityRepository.findAll(spec);
@@ -103,14 +103,16 @@ public class IdentityService {
     }
 
     private boolean matchesWeight(IdentityContext context, Integer minWeight, Integer maxWeight) {
-        boolean matchesMin = minWeight == null || context.getMinWeight().equals(minWeight);
-        boolean matchesMax = maxWeight == null || context.getMaxWeight().equals(maxWeight);
+        boolean matchesMin = minWeight == null || context.getMinWeight() >= minWeight;
+        boolean matchesMax = maxWeight == null || context.getMaxWeight() <= maxWeight;
         return matchesMin && matchesMax;
     }
 
     private boolean matchesSpeed(IdentityContext context, Integer minSpeed, Integer maxSpeed) {
-        boolean matchesMin = minSpeed == null || context.getMinSpeed().equals(minSpeed);
-        boolean matchesMax = maxSpeed == null || context.getMaxSpeed().equals(maxSpeed);
+        boolean matchesMin = minSpeed == null || context.getMinSpeed() >= minSpeed;
+        boolean matchesMax = maxSpeed == null || context.getMaxSpeed() <= maxSpeed;
+
         return matchesMin && matchesMax;
     }
+
 }

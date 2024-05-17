@@ -4,6 +4,8 @@ import com.example.limbusDeckMaker.dto.response.EgoDetailInfoDto;
 import com.example.limbusDeckMaker.dto.response.EgoListInfoDto;
 import com.example.limbusDeckMaker.dto.response.IdentityDetailInfoDto;
 import com.example.limbusDeckMaker.dto.response.IdentityListInfoDto;
+import com.example.limbusDeckMaker.exception.NoEgoFoundException;
+import com.example.limbusDeckMaker.exception.NoIdentityFoundException;
 import com.example.limbusDeckMaker.service.EgoService;
 import com.example.limbusDeckMaker.service.IdentityService;
 import java.util.List;
@@ -42,29 +44,30 @@ public class DictionaryController {
 
     @GetMapping("/ego")
     public ResponseEntity<List<EgoListInfoDto>> searchEgosByCriteria(
-        @RequestParam(value = "id", required = false) Long id,
-        @RequestParam(value = "season", required = false) Integer season,
-        @RequestParam(value = "grade", required = false) String grade,
+        @RequestParam(value = "name", required = false) List<String> names,
+        @RequestParam(value = "season", required = false) List<Integer> seasons,
+        @RequestParam(value = "grade", required = false) List<String> grades,
         @RequestParam(value = "keyword", required = false) List<String> keywords,
         @RequestParam(value = "resources", required = false) List<String> resources,
         @RequestParam(value = "types", required = false) List<String> types,
         @RequestParam(value = "minWeight", required = false) Integer minWeight,
         @RequestParam(value = "maxWeight", required = false) Integer maxWeight) {
 
-        List<EgoListInfoDto> results = egoService.getEgoByCriteria(id, season, grade, keywords,
+        List<EgoListInfoDto> results = egoService.getEgoByCriteria(names, seasons, grades, keywords,
             resources, types, minWeight, maxWeight);
+
         if (results.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new NoEgoFoundException("해당하는 에고가 없습니다.");
         }
         return ResponseEntity.ok(results);
     }
 
     @GetMapping("/identity")
     public ResponseEntity<List<IdentityListInfoDto>> searchIdentitiesByCriteria(
-        @RequestParam(value = "id", required = false) Long id,
-        @RequestParam(value = "season", required = false) Integer season,
-        @RequestParam(value = "grade", required = false) Integer grade,
-        @RequestParam(value = "affiliation", required = false) String affiliation,
+        @RequestParam(value = "name", required = false) List<String> names,
+        @RequestParam(value = "season", required = false) List<Integer> seasons,
+        @RequestParam(value = "grade", required = false) List<Integer> grades,
+        @RequestParam(value = "affiliation", required = false) List<String> affiliations,
         @RequestParam(value = "keyword", required = false) List<String> keywords,
         @RequestParam(value = "resources", required = false) List<String> resources,
         @RequestParam(value = "types", required = false) List<String> types,
@@ -74,11 +77,11 @@ public class DictionaryController {
         @RequestParam(value = "maxSpeed", required = false) Integer maxSpeed
     ) {
 
-        List<IdentityListInfoDto> results = identityService.getIdentityByCriteria(id, season, grade,
-            affiliation, keywords, resources, types, minWeight, maxWeight, minSpeed, maxSpeed);
+        List<IdentityListInfoDto> results = identityService.getIdentityByCriteria(names, seasons, grades,
+            affiliations, keywords, resources, types, minWeight, maxWeight, minSpeed, maxSpeed);
 
         if (results.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new NoIdentityFoundException("해당하는 인격이 없습니다.");
         }
         return ResponseEntity.ok(results);
     }

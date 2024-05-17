@@ -1,37 +1,50 @@
 package com.example.limbusDeckMaker.repository.specification;
 
+import com.example.limbusDeckMaker.domain.Ego;
 import com.example.limbusDeckMaker.domain.Identity;
+import com.example.limbusDeckMaker.domain.Sinner;
+import jakarta.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class IdentitySpecification {
 
-    public static Specification<Identity> hasSinnerId(Long sinnerId) {
+    public static Specification<Identity> hasSinnerNames(List<String> sinnerNames) {
         return (root, query, cb) -> {
-            if (sinnerId == null) return null;
-            return cb.equal(root.get("sinner").get("id"), sinnerId);
-        };
-    }
-
-    public static Specification<Identity> hasSeason(Integer season) {
-        return (root, query, cb) -> {
-            if (season == null) return null;
-            return cb.equal(root.get("season"), season);
-        };
-    }
-
-    public static Specification<Identity> hasGrade(Integer grade) {
-        return (root, query, cb) -> {
-            if (grade == null)
+            if (sinnerNames == null || sinnerNames.isEmpty()) {
                 return null;
-            return cb.equal(root.get("grade"), grade);
+            }
+            Join<Identity, Sinner> sinnerJoin = root.join("sinner", JoinType.INNER);
+            return sinnerJoin.get("name").in(sinnerNames.stream().map(String::toLowerCase).collect(Collectors.toList()));
         };
     }
 
-    public static Specification<Identity> hasAffiliation(String affiliation) {
-        return (root, query, cb) -> {
-            if (affiliation == null)
+    public static Specification<Identity> hasSeasons(List<Integer> seasons) {
+        return (Root<Identity> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+            if (seasons == null || seasons.isEmpty()) {
                 return null;
-            return cb.equal(root.get("affiliation"), affiliation);
+            }
+            return root.get("season").in(seasons);
+        };
+    }
+
+    public static Specification<Identity> hasGrades(List<Integer> grades) {
+        return (Root<Identity> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+            if (grades == null || grades.isEmpty()) {
+                return null;
+            }
+            return root.get("grade").in(grades);
+        };
+    }
+
+    public static Specification<Identity> hasAffiliations(List<String> affiliations) {
+        return (Root<Identity> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+            if (affiliations == null || affiliations.isEmpty()) {
+                return null;
+            }
+            return root.get("grade").in(affiliations);
         };
     }
 }
