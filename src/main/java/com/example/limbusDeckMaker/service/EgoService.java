@@ -4,10 +4,7 @@ import static com.example.limbusDeckMaker.service.mapper.EgoBuildInfoMapper.coun
 import static com.example.limbusDeckMaker.service.mapper.EgoListInfoMapper.*;
 
 import com.example.limbusDeckMaker.domain.Ego;
-import com.example.limbusDeckMaker.dto.response.EgoBuildInfoDto;
-import com.example.limbusDeckMaker.dto.response.EgoContext;
-import com.example.limbusDeckMaker.dto.response.EgoDetailInfoDto;
-import com.example.limbusDeckMaker.dto.response.EgoListInfoDto;
+import com.example.limbusDeckMaker.dto.response.*;
 import com.example.limbusDeckMaker.repository.EgoRepository;
 import com.example.limbusDeckMaker.repository.specification.EgoSpecification;
 
@@ -15,9 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class EgoService {
 
@@ -32,19 +32,19 @@ public class EgoService {
             .map(EgoDetailInfoDto::toDto);
     }
 
-    public List<EgoListInfoDto> getEgoByCriteria(Long sinnerId, Integer season, String grade,
+    public List<EgoListInfoDto> getEgoByCriteria(List<String> sinnerNames, List<Integer> seasons, List<String> grades,
         List<String> keywords, List<String> resources, List<String> types, Integer minWeight,
         Integer maxWeight) {
 
         Specification<Ego> spec = Specification.where(null);
-        if (sinnerId != null) {
-            spec = spec.and(EgoSpecification.hasSinnerId(sinnerId));
+        if (sinnerNames != null) {
+            spec = spec.and(EgoSpecification.hasSinnerNames(sinnerNames));
         }
-        if (season != null) {
-            spec = spec.and(EgoSpecification.hasSeason(season));
+        if (seasons != null) {
+            spec = spec.and(EgoSpecification.hasSeasons(seasons));
         }
-        if (grade != null) {
-            spec = spec.and(EgoSpecification.hasGrade(grade));
+        if (grades != null) {
+            spec = spec.and(EgoSpecification.hasGrades(grades));
         }
 
         List<Ego> egos = egoRepository.findAll(spec);
@@ -56,7 +56,7 @@ public class EgoService {
                 findMaxWeight(ego)))
             .toList();
 
-        return egoContexts.stream()
+        List<EgoListInfoDto> results = egoContexts.stream()
             .filter(context -> matchesKeywords(context, keywords))
             .filter(context -> matchesResources(context, resources))
             .filter(context -> matchesTypes(context, types))
@@ -64,6 +64,7 @@ public class EgoService {
             .map(context -> EgoListInfoDto.toDto(context.getEgo(), context))
             .collect(Collectors.toList());
 
+        return results;
     }
 
     public Optional<EgoBuildInfoDto> getEgoBuildInfo(List<Long> egoIds){
@@ -110,8 +111,8 @@ public class EgoService {
     }
 
     private boolean matchesWeight(EgoContext context, Integer minWeight, Integer maxWeight) {
-        boolean matchesMin = minWeight == null || context.getMinWeight().equals(minWeight);
-        boolean matchesMax = maxWeight == null || context.getMaxWeight().equals(maxWeight);
+        boolean matchesMin = minWeight == null || context.getMinWeight() >= minWeight;
+        boolean matchesMax = maxWeight == null || context.getMaxWeight() <= maxWeight;
         return matchesMin && matchesMax;
     }
 
