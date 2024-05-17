@@ -1,6 +1,5 @@
 package com.example.limbusDeckMaker.repository.specification;
 
-import com.example.limbusDeckMaker.domain.Ego;
 import com.example.limbusDeckMaker.domain.Identity;
 import com.example.limbusDeckMaker.domain.Sinner;
 import jakarta.persistence.criteria.*;
