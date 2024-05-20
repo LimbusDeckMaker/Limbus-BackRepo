@@ -22,7 +22,7 @@ public class YouTubeService {
 
     public String getLatestVideoByChannel() throws GeneralSecurityException, IOException {
 
-        String apiKey = "AIzaSyBFtWfoQZzqScOooORGHaTCboSRQ5kL9Uo";
+        String apiKey = "AIzaSyAd94jWv4sfXylJ-ccLkbXKVsU3TvqxAgc";
         String channelId = "UCpqyr6h4RCXCEswHlkSjykA";
 
         YouTube youtubeService = new YouTube.Builder(
