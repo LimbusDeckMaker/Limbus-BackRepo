@@ -44,7 +44,7 @@ public class DictionaryController {
 
     @GetMapping("/ego")
     public ResponseEntity<List<EgoListInfoDto>> searchEgosByCriteria(
-        @RequestParam(value = "name", required = false) List<String> names,
+        @RequestParam(value = "sinner", required = false) List<String> names,
         @RequestParam(value = "season", required = false) List<Integer> seasons,
         @RequestParam(value = "grade", required = false) List<String> grades,
         @RequestParam(value = "keyword", required = false) List<String> keywords,
@@ -64,7 +64,7 @@ public class DictionaryController {
 
     @GetMapping("/identity")
     public ResponseEntity<List<IdentityListInfoDto>> searchIdentitiesByCriteria(
-        @RequestParam(value = "name", required = false) List<String> names,
+        @RequestParam(value = "sinner", required = false) List<String> names,
         @RequestParam(value = "season", required = false) List<Integer> seasons,
         @RequestParam(value = "grade", required = false) List<Integer> grades,
         @RequestParam(value = "affiliation", required = false) List<String> affiliations,
