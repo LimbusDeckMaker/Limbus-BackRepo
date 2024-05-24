@@ -6,6 +6,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,9 +21,11 @@ public class YouTubeService {
     private static final String APPLICATION_NAME = "limbusDeckMaker";
     private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
+    @Value("${youtube.api.key}")
+    private String apiKey;
+
     public String getLatestVideoByChannel() throws GeneralSecurityException, IOException {
 
-        String apiKey = "AIzaSyBFtWfoQZzqScOooORGHaTCboSRQ5kL9Uo";
         String channelId = "UCpqyr6h4RCXCEswHlkSjykA";
 
         YouTube youtubeService = new YouTube.Builder(

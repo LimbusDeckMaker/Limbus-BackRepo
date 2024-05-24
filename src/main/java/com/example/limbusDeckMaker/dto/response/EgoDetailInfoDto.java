@@ -27,6 +27,7 @@ public class EgoDetailInfoDto {
 
     private LocalDate releaseDate;
     private String obtainingMethod;
+    private List<Integer> cost;
 
     private List<EgoSkillInfo> egoskills;
     private List<EgoSkillInfo> egoCorSkills;
@@ -45,6 +46,7 @@ public class EgoDetailInfoDto {
             .passive(new Passive(ego))
             .releaseDate(ego.getReleaseDate())
             .obtainingMethod(ego.getObtainingMethod())
+            .cost(ego.getEgoSkills().getFirst().getSkill().getCost())
             .egoskills(EgoSkillInfo.fromEgoSkills(ego.getEgoSkills()))
             .egoCorSkills(EgoSkillInfo.fromCorrosionSkills(ego.getEgoCorSkills()))
             .build();
