@@ -30,6 +30,9 @@ public class SkillInfo {
     @JsonProperty("coinpower")
     private Integer coinPower;
 
+    @JsonProperty("coinNum")
+    private Integer coinNum;
+
     @JsonProperty("weight")
     private Integer atkWeight;
 
