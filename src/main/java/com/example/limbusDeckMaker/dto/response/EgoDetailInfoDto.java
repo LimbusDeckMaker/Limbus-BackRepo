@@ -46,7 +46,7 @@ public class EgoDetailInfoDto {
             .passive(new Passive(ego))
             .releaseDate(ego.getReleaseDate())
             .obtainingMethod(ego.getObtainingMethod())
-            .cost(ego.getEgoSkills().getFirst().getSkill().getCost())
+            .cost(ego.getEgoSkills().get(0).getSkill().getCost())
             .egoskills(EgoSkillInfo.fromEgoSkills(ego.getEgoSkills()))
             .egoCorSkills(EgoSkillInfo.fromCorrosionSkills(ego.getEgoCorSkills()))
             .build();
