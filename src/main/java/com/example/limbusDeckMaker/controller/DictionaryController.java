@@ -31,15 +31,15 @@ public class DictionaryController {
     @GetMapping("/ego/{id}")
     public ResponseEntity<EgoDetailInfoDto> searchEgoById(@PathVariable("id") Long id) {
         return egoService.getSpecificEgo(id)
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new NoEgoFoundException("해당 ID를 가진 에고가 없습니다."));
     }
 
     @GetMapping("/identity/{id}")
     public ResponseEntity<IdentityDetailInfoDto> searchIdentityById(@PathVariable("id") Long id) {
         return identityService.getSpecificIdentity(id)
             .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new NoIdentityFoundException("해당 ID를 가진 인격이 없습니다."));
     }
 
     @GetMapping("/ego")

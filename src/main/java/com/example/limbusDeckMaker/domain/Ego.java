@@ -43,6 +43,8 @@ public class Ego {
 
     private String zoomImage;
 
+    private String corImage;
+
     private String grade;
 
     @Convert(converter = StringListConverter.class)
