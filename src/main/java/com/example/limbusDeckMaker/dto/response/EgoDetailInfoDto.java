@@ -17,6 +17,7 @@ public class EgoDetailInfoDto {
     private String name;
     private String image;
     private String zoomImage;
+    private String corImage;
     private String grade;
     private Integer season;
 
@@ -39,6 +40,7 @@ public class EgoDetailInfoDto {
             .name(ego.getName())
             .image(ego.getImage())
             .zoomImage(ego.getZoomImage())
+            .corImage(ego.getCorImage())
             .grade(ego.getGrade())
             .season(ego.getSeason())
             .resistance(ego.getResistance())
