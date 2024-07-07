@@ -15,7 +15,7 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Applies to all endpoints
                         // .allowedOrigins("http://3.39.211.127:8080", "http://localhost:3000", "https://d11u3ddr72a0sb.cloudfront.net", "https://limbus.store", "http://limbus.store:8080", "http://localhost:8080", "https://baslimbus.info", "http://baslimbus.info", "https://courageous-torte-9573b1.netlify.app/", "https://www.baslimbus.info")
-                        .allowedOrigins("*"),
+                        .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed HTTP methods
                         .allowedHeaders("*"); // Allowed headers
                         //.allowCredentials(true); // Credentials/cookies allowed
